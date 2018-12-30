@@ -7,6 +7,8 @@ const path = require('path');
 const url = require('url');
 const rpc = require('discord-rich-presence')('528735337015410712');
 
+const AppUpdater = require('./modules/AppUpdater');
+
 const startTimestamp = new Date();
 const rpcData = {
 	startTimestamp,
@@ -18,6 +20,11 @@ const rpcData = {
 	largeImageKey: 'large_default',
 	smallImageKey: 'small_default'
 }
+
+let needsUpdate = false;
+const updater = new AppUpdater('info');
+
+let endUpdateData = null;
 
 let mainWindow;
 
@@ -58,6 +65,8 @@ app.on('ready', () => {
 	globalShortcut.register('CommandOrControl+Shift+I', () => {
 		mainWindow.webContents.openDevTools();
 	});
+
+	updater.check();
 
 	setActivity(rpcData);
 });

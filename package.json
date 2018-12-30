@@ -1,6 +1,6 @@
 {
   "name": "myrpc",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Distributed Discord RPC for @everyone!",
   "main": "src/main.js",
   "repository": "https://github.com/RailRunner166/MyRpc.git",
@@ -10,19 +10,34 @@
   "scripts": {
     "launch": "electron src/main.js",
     "styles": "gulp sass",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist:win64": "electron-builder --x64",
+    "dist:win32": "electron-builder --ia32",
+    "dist": "yarn dist:win32 && yarn dist:win64"
   },
   "build": {
     "appId": "me.railrunner16.myrpc",
     "productName": "MyRPC",
     "win": {
+      "publish": [
+        "github"
+      ],
       "target": "msi",
-      "icon": "src/assets/logo_square_512.png"
+      "icon": "src/assets/icons/512x512.png"
+    },
+    "mac": {
+      "category": "public.app-category.entertainment",
+      "target": "default",
+      "icon": "src/assets/icons/512x512.icns"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "src/assets/icons/512x512.png"
     }
   },
   "dependencies": {
     "discord-rich-presence": "^0.0.7",
+    "electron-log": "^2.2.17",
+    "electron-updater": "^4.0.6",
     "moment": "^2.23.0",
     "register-scheme": "github:devsnek/node-register-scheme"
   },
