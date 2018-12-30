@@ -1,0 +1,36 @@
+{
+  "name": "myrpc",
+  "version": "1.0.0",
+  "description": "Distributed Discord RPC for @everyone!",
+  "main": "src/main.js",
+  "repository": "https://github.com/RailRunner166/MyRpc.git",
+  "author": "Landon Gravat <railinator4903@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "launch": "electron src/main.js",
+    "styles": "gulp sass",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "me.railrunner16.myrpc",
+    "productName": "MyRPC",
+    "win": {
+      "target": "msi",
+      "icon": "src/assets/logo_square_512.png"
+    }
+  },
+  "dependencies": {
+    "discord-rich-presence": "^0.0.7",
+    "moment": "^2.23.0",
+    "register-scheme": "github:devsnek/node-register-scheme"
+  },
+  "devDependencies": {
+    "electron": "^4.0.0",
+    "electron-builder": "^20.38.4",
+    "gulp": "^4.0.0",
+    "gulp-sass": "^4.0.2",
+    "node-sass": "^4.11.0"
+  }
+}
