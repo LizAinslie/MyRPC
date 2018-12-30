@@ -5,6 +5,20 @@
 @import 'includes/mixins/base-input';
 @import 'includes/mixins/base-transition';
 
+body {
+    -webkit-app-region: drag;
+    -webkit-user-select: none;
+}
+
+input {
+    -webkit-app-region: no-drag;
+    -webkit-user-select: text;
+}
+
+button {
+    -webkit-app-region: no-drag;
+}
+
 .ui {
     &.header {
         width: 100%;

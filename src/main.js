@@ -43,7 +43,9 @@ const createWindow = () => {
 	}));
 
 	const icon = nativeImage.createFromPath(path.join(__dirname, 'assets/logo_square_512.png'));
-	mainWindow.setIcon(icon);
+	if (process.platform != 'darwin') {
+		mainWindow.setIcon(icon);
+	}
 
 	mainWindow.on('close', event => {
 		event.preventDefault();
