@@ -58,14 +58,22 @@ const createWindow = () => {
 			click() {
 				require('electron').shell.openExternal('https://discord.gg/xna9NRh');
 			},
-			icon: nativeImage.createFromPath(path.join(__dirname, 'assets/Discord-Logo-Black.png')).resize({width: 18, height: 18, quality: 'best'})
+			icon: nativeImage.createFromPath(path.join(__dirname, 'assets/Discord-Logo-Black.png')).resize({ width: 18, height: 18, quality: 'best' })
 		},
+		
 		{
 			label: 'Source Code',
 			click() {
 				require('electron').shell.openExternal('https://github.com/RailRunner166/MyRPC');
 			},
 			icon: nativeImage.createFromPath(path.join(__dirname, 'assets/Github-Logo-Black.png')).resize({width: 18, height: 18, quality: 'best'})
+		},
+		{
+			label: 'Website',
+			click() {
+				require('electron').shell.openExternal('http://myrpc.railrunner16.me/');
+			},
+			icon: nativeImage.createFromPath(path.join(__dirname, 'assets/Globe-Button-Black.png')).resize({ width: 18, height: 18, quality: 'best' })
 		},
 		{
 			label: 'Exit MyRPC',
