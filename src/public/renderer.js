@@ -3,6 +3,7 @@
 /* eslint-env browser */
 
 const { ipcRenderer } = require('electron');
+// const fetch = require('electron-fetch');
 const moment = require('moment');
 
 const time = ipcRenderer.sendSync('synchronous-message', 'get_time');
@@ -15,6 +16,14 @@ const largeImageKeySelect = document.getElementById('selectLargeImageKey');
 const smallImageKeySelect = document.getElementById('selectSmallImageKey');
 const submitButton = document.getElementById('buttonSubmit');
 
+function createElementFromHTML(htmlString) {
+	var div = document.createElement('div');
+	div.innerHTML = htmlString.trim();
+  
+	// Change this to div.childNodes to support multiple top-level nodes
+	return div.firstChild; 
+} //thanks stackoverflow!
+
 const data = {
   	details: 'Using MyRPC',
   	state: 'Being totally awesome',
@@ -24,11 +33,22 @@ const data = {
   	smallImageKey: 'small_default',
 };
 
-const assets = {
-	large_default: 'https://cdn.discordapp.com/app-assets/528735337015410712/528749698408906752.png',
-	small_default: 'https://cdn.discordapp.com/app-assets/528735337015410712/528761124267753473.png',
-	perchlorate: 'https://cdn.discordapp.com/app-assets/528735337015410712/528934391947329536.png',
-};
+const assets = {};
+
+fetch('http://165.227.63.75:3500/images')
+.then(resp => resp.json())
+.then(body => {
+	for (const item of body) { 
+		assets[item.id] = item.url;
+		const option = createElementFromHTML(`<option value="${item.id}">${item.name}</option>`);
+		const option2 = createElementFromHTML(`<option value="${item.id}">${item.name}</option>`);
+		smallImageKeySelect.appendChild(option);
+		largeImageKeySelect.appendChild(option2);
+	}
+
+	smallImageKeySelect.selectedIndex = 0;
+	largeImageKeySelect.selectedIndex = 0;
+});
 
 const updateInputs = () => {
   	detailsInput.value = data.details;
