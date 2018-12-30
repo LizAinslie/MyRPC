@@ -27,6 +27,7 @@ const data = {
 const assets = {
 	large_default: 'https://cdn.discordapp.com/app-assets/528735337015410712/528749698408906752.png',
 	small_default: 'https://cdn.discordapp.com/app-assets/528735337015410712/528761124267753473.png',
+	perchlorate: 'https://cdn.discordapp.com/app-assets/528735337015410712/528934391947329536.png',
 };
 
 const updateInputs = () => {

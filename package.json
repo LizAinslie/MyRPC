@@ -1,6 +1,6 @@
 {
   "name": "myrpc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Distributed Discord RPC for @everyone!",
   "main": "src/main.js",
   "repository": "https://github.com/RailRunner166/MyRpc.git",
