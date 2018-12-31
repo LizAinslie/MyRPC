@@ -6,7 +6,9 @@ const { app, Tray, Menu, BrowserWindow, nativeImage, ipcMain, globalShortcut, sh
 const path = require('path');
 const url = require('url');
 const rpc = require('discord-rich-presence')('528735337015410712');
+
 const AppUpdater = require('./modules/AppUpdater');
+const ManualUpdater = require('./modules/ManualUpdater');
 
 const startTimestamp = new Date();
 const rpcData = {
@@ -60,7 +62,7 @@ const createWindow = () => {
 			click() {
 				shell.openExternal('https://discord.gg/xna9NRh');
 			},
-			icon: nativeImage.createFromPath(path.join(__dirname, 'assets/Discord-Logo-Black.png')).resize({ width: 18, height: 18, quality: 'best' })
+			icon: nativeImage.createFromPath(path.join(__dirname, 'assets/menu_icons/discord.png')).resize({ width: 18, height: 18, quality: 'best' })
 		},
 		
 		{
@@ -75,15 +77,15 @@ const createWindow = () => {
 			click() {
 				shell.openExternal('http://myrpc.railrunner16.me/');
 			},
-			icon: nativeImage.createFromPath(path.join(__dirname, 'assets/Globe-Button-Black.png')).resize({ width: 18, height: 18, quality: 'best' })
+			icon: nativeImage.createFromPath(path.join(__dirname, 'assets/menu_icons/close.png')).resize({ width: 18, height: 18, quality: 'best' })
 		},
 		{
 			label: 'Exit MyRPC',
 			click() { 
 				app.exit()
 			},
-			icon: nativeImage.createFromPath(path.join(__dirname, 'assets/Close-Me-Button-Black.png')).resize({width: 18, height: 18, quality: 'best'})
-		}	
+			icon: nativeImage.createFromPath(path.join(__dirname, 'assets/menu_icons/close.png')).resize({width: 18, height: 18, quality: 'best'})
+		}
 	]);
 
 	tray.setToolTip('MyRPC');
@@ -93,6 +95,55 @@ const createWindow = () => {
 	tray.on('click', () => {
 		mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
 	});
+
+	const windowMenu = Menu.buildFromTemplate([
+		{
+			label: 'Links',
+			submenu: [
+				{
+					label: 'Support Server',
+					click() {
+						shell.openExternal('https://discord.gg/xna9NRh');
+					},
+					icon: nativeImage.createFromPath(path.join(__dirname, 'assets/menu_icons/discord.png')).resize({ width: 18, height: 18, quality: 'best' })
+				},
+				
+				{
+					label: 'Source Code',
+					click() {
+						shell.openExternal('https://github.com/RailRunner166/MyRPC');
+					},
+					icon: nativeImage.createFromPath(path.join(__dirname, 'assets/Github-Logo-Black.png')).resize({width: 18, height: 18, quality: 'best'})
+				},
+				{
+					label: 'Website',
+					click() {
+						shell.openExternal('http://myrpc.railrunner16.me/');
+					},
+					icon: nativeImage.createFromPath(path.join(__dirname, 'assets/menu_icons/globe.png')).resize({ width: 18, height: 18, quality: 'best' })
+				}
+			]
+		},
+		{
+			label: 'Actions',
+			submenu: [
+				{
+					label: 'Exit MyRPC',
+					click() { 
+						app.exit()
+					},
+					icon: nativeImage.createFromPath(path.join(__dirname, 'assets/menu_icon/close.png')).resize({width: 18, height: 18, quality: 'best'})
+				},
+				{
+					label: 'Check for Updates',
+					click: ManualUpdater.checkForUpdates,
+					icon: nativeImage.createFromPath(path.join(__dirname, 'assets/menu_icons/download.png')).resize({width: 18, height: 18, quality: 'best'})
+				}
+			]
+		}
+	]);
+
+	Menu.setApplicationMenu(windowMenu);
 }
 
 const setActivity = data => {
