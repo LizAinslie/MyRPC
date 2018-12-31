@@ -77,7 +77,8 @@ const createWindow = () => {
 			click() {
 				shell.openExternal('http://myrpc.railrunner16.me/');
 			},
-			icon: nativeImage.createFromPath(path.join(__dirname, 'assets/menu_icons/close.png')).resize({ width: 18, height: 18, quality: 'best' })
+			icon: nativeImage.createFromPath(path.join(__dirname, 'assets/menu_icons/globe.png')).resize({ width: 18, height: 18, quality: 'best' })
+			
 		},
 		{
 			label: 'Exit MyRPC',
@@ -132,7 +133,7 @@ const createWindow = () => {
 					click() { 
 						app.exit()
 					},
-					icon: nativeImage.createFromPath(path.join(__dirname, 'assets/menu_icon/close.png')).resize({width: 18, height: 18, quality: 'best'})
+					icon: nativeImage.createFromPath(path.join(__dirname, 'assets/menu_icons/close.png')).resize({width: 18, height: 18, quality: 'best'})
 				},
 				{
 					label: 'Check for Updates',
