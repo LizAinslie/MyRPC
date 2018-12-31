@@ -2,7 +2,7 @@
 
 /* eslint-disable no-console */
 
-const { app, Tray, Menu, BrowserWindow, nativeImage, ipcMain, globalShortcut } = require('electron');
+const { app, Tray, Menu, BrowserWindow, nativeImage, ipcMain, globalShortcut, shell } = require('electron');
 const path = require('path');
 const url = require('url');
 const rpc = require('discord-rich-presence')('528735337015410712');
@@ -58,7 +58,7 @@ const createWindow = () => {
 		{
 			label: 'Support Server',
 			click() {
-				require('electron').shell.openExternal('https://discord.gg/xna9NRh');
+				shell.openExternal('https://discord.gg/xna9NRh');
 			},
 			icon: nativeImage.createFromPath(path.join(__dirname, 'assets/Discord-Logo-Black.png')).resize({ width: 18, height: 18, quality: 'best' })
 		},
@@ -66,14 +66,14 @@ const createWindow = () => {
 		{
 			label: 'Source Code',
 			click() {
-				require('electron').shell.openExternal('https://github.com/RailRunner166/MyRPC');
+				shell.openExternal('https://github.com/RailRunner166/MyRPC');
 			},
 			icon: nativeImage.createFromPath(path.join(__dirname, 'assets/Github-Logo-Black.png')).resize({width: 18, height: 18, quality: 'best'})
 		},
 		{
 			label: 'Website',
 			click() {
-				require('electron').shell.openExternal('http://myrpc.railrunner16.me/');
+				shell.openExternal('http://myrpc.railrunner16.me/');
 			},
 			icon: nativeImage.createFromPath(path.join(__dirname, 'assets/Globe-Button-Black.png')).resize({ width: 18, height: 18, quality: 'best' })
 		},
