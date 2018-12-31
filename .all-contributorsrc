@@ -20,6 +20,15 @@
         "infra",
         "tutorial"
       ]
+    },
+    {
+      "login": "axelgreavette",
+      "name": "Kirox",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/31705527?v=4",
+      "profile": "https://kirox.xyz",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
