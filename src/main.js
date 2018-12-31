@@ -7,10 +7,13 @@ const AppUpdater = require('./modules/AppUpdater');
 const ManualUpdater = require('./modules/ManualUpdater');
 
 class App {
-	constructor() {
+	constructor(debug) {
 		this.analytics = new Analytics.default('UA-131558223-1');
 		this.rpc = require('discord-rich-presence')('528735337015410712');
 		this.updater = new AppUpdater('info');
+
+		this.analyticsClientId = null;
+		this.debug = !!debug;
 
 		this.startTimestamp = new Date();
 		this.rpcData = {
@@ -22,7 +25,7 @@ class App {
 			smallImageText: 'Made by RailRunner16',
 			largeImageKey: 'large_default',
 			smallImageKey: 'small_default'
-		}
+		};
 		
 		this.tray = null;
 		this.mainWindow = null;
@@ -32,6 +35,8 @@ class App {
 		this.initIpcEvents();
 
 		this.buildMenu();
+
+		this.getGAClientId();
 	}
 
 	createWindow() {
@@ -81,6 +86,11 @@ class App {
 		});
 	}
 
+	async getGAClientId() {
+		const response = await this.analytics.screen('myrpc', app.getVersion(), 'me.railrunner16.myrpc', 'me.railrunner16.myrpc', 'Main')
+		this.analyticsClientId = response.clientId;
+	}
+
 	initAppEvents() {
 		app.on('ready', () => {
 			this.buildTray();
@@ -123,7 +133,9 @@ class App {
 					{
 						label: 'Support Server',
 						click() {
-							shell.openExternal('https://discord.gg/xna9NRh');
+							this.analytics.pageview('https://discord.gg', '/xna9NRh', 'Support Server Invite', this.analyticsClientId).then(res => {
+								shell.openExternal('https://discord.gg/xna9NRh');
+							});
 						},
 						icon: nativeImage.createFromPath(path.join(__dirname, 'assets/menu_icons/discord.png')).resize({ width: 18, height: 18, quality: 'best' })
 					},
@@ -131,14 +143,18 @@ class App {
 					{
 						label: 'Source Code',
 						click() {
-							shell.openExternal('https://github.com/RailRunner166/MyRPC');
+							this.analytics.pageview('https://github.com', '/RailRunner166/MyRPC', 'GitHub Page', this.analyticsClientId).then(res => {
+								shell.openExternal('https://github.com/RailRunner166/MyRPC');
+							});
 						},
 						icon: nativeImage.createFromPath(path.join(__dirname, 'assets/Github-Logo-Black.png')).resize({width: 18, height: 18, quality: 'best'})
 					},
 					{
 						label: 'Website',
 						click() {
-							shell.openExternal('http://myrpc.railrunner16.me/');
+							this.analytics.pageview('https://railrunner16.me', '/myrpc', 'Product Website', this.analyticsClientId).then(res => {
+								shell.openExternal('https://railrunner16.me/myrpc');
+							});
 						},
 						icon: nativeImage.createFromPath(path.join(__dirname, 'assets/menu_icons/globe.png')).resize({ width: 18, height: 18, quality: 'best' })
 					}
@@ -173,7 +189,9 @@ class App {
 			{
 				label: 'Support Server',
 				click() {
-					shell.openExternal('https://discord.gg/xna9NRh');
+					this.analytics.pageview('https://discord.gg', '/xna9NRh', 'Support Server Invite', this.analyticsClientId).then(res => {
+						shell.openExternal('https://discord.gg/xna9NRh');
+					});
 				},
 				icon: nativeImage.createFromPath(path.join(__dirname, 'assets/menu_icons/discord.png')).resize({ width: 18, height: 18, quality: 'best' })
 			},
@@ -181,14 +199,18 @@ class App {
 			{
 				label: 'Source Code',
 				click() {
-					shell.openExternal('https://github.com/RailRunner166/MyRPC');
+					this.analytics.pageview('https://github.com', '/RailRunner166/MyRPC', 'GitHub Page', this.analyticsClientId).then(res => {
+						shell.openExternal('https://github.com/RailRunner166/MyRPC');
+					});
 				},
 				icon: nativeImage.createFromPath(path.join(__dirname, 'assets/Github-Logo-Black.png')).resize({width: 18, height: 18, quality: 'best'})
 			},
 			{
 				label: 'Website',
 				click() {
-					shell.openExternal('http://myrpc.railrunner16.me/');
+					this.analytics.pageview('https://railrunner16.me', '/myrpc', 'Product Website', this.analyticsClientId).then(res => {
+						shell.openExternal('https://railrunner16.me/myrpc');
+					});
 				},
 				icon: nativeImage.createFromPath(path.join(__dirname, 'assets/menu_icons/globe.png')).resize({ width: 18, height: 18, quality: 'best' })
 
@@ -212,4 +234,4 @@ class App {
 	}
 }
 
-new App();
+new App(false);
