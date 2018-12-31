@@ -1,5 +1,7 @@
-# MyRPC
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
+
+---
+
 MyRPC is a custom status tool for Discord
 
 **Manuals:**
