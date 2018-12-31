@@ -1,0 +1,25 @@
+{
+  "projectName": "MyRPC",
+  "projectOwner": "RailRunner166",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "RailRunner166",
+      "name": "Landon Gravat",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/45880278?v=4",
+      "profile": "https://rr16.tk/",
+      "contributions": [
+        "code",
+        "doc",
+        "infra",
+        "tutorial"
+      ]
+    }
+  ]
+}
