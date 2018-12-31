@@ -1,6 +1,6 @@
 {
   "name": "myrpc",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Distributed Discord RPC for @everyone!",
   "main": "src/main.js",
   "repository": "https://github.com/RailRunner166/MyRpc.git",
@@ -10,9 +10,13 @@
   "scripts": {
     "launch": "electron src/main.js",
     "styles": "gulp sass",
+
     "dist:win64": "electron-builder --x64",
     "dist:win32": "electron-builder --ia32",
-    "dist": "yarn dist:win32 && yarn dist:win64"
+    "dist": "yarn dist:win32 && yarn dist:win64",
+
+    "contrib:add": "all-contributors add",
+    "contrib:generate": "all-contributors generate"
   },
   "build": {
     "appId": "me.railrunner16.myrpc",
@@ -42,6 +46,7 @@
     "register-scheme": "github:devsnek/node-register-scheme"
   },
   "devDependencies": {
+    "all-contributors-cli": "^5.5.0",
     "electron": "^4.0.0",
     "electron-builder": "^20.38.4",
     "gulp": "^4.0.0",
