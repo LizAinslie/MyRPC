@@ -10,9 +10,12 @@
   "scripts": {
     "launch": "electron src/main.js",
     "styles": "gulp sass",
+    "lint": "./node_modules/.bin/eslint . --fix",
+
     "dist:win64": "electron-builder --x64",
     "dist:win32": "electron-builder --ia32",
     "dist": "yarn dist:win32 && yarn dist:win64",
+    
     "contrib:add": "all-contributors add",
     "contrib:generate": "all-contributors generate"
   },
@@ -48,6 +51,7 @@
     "all-contributors-cli": "^5.5.0",
     "electron": "^4.0.0",
     "electron-builder": "^20.38.4",
+    "eslint": "^5.11.1",
     "gulp": "^4.0.0",
     "gulp-sass": "^4.0.2",
     "node-sass": "^4.11.0"

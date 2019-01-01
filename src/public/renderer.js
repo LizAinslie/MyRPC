@@ -25,38 +25,38 @@ function createElementFromHTML(htmlString) {
 } //thanks stackoverflow!
 
 const data = {
-  	details: 'Using MyRPC',
-  	state: 'Being totally awesome',
-  	largeImageText: 'MyRPC',
-  	smallImageText: 'Made by RailRunner16',
-  	largeImageKey: 'large_default',
-  	smallImageKey: 'small_default',
+	details: 'Using MyRPC',
+	state: 'Being totally awesome',
+	largeImageText: 'MyRPC',
+	smallImageText: 'Made by RailRunner16',
+	largeImageKey: 'large_default',
+	smallImageKey: 'small_default',
 };
 
 const assets = {};
 
 fetch('http://165.227.63.75:3500/images')
-.then(resp => resp.json())
-.then(body => {
-	for (const item of body) { 
-		assets[item.id] = item.url;
-		const option = createElementFromHTML(`<option value="${item.id}">${item.name}</option>`);
-		const option2 = createElementFromHTML(`<option value="${item.id}">${item.name}</option>`);
-		smallImageKeySelect.appendChild(option);
-		largeImageKeySelect.appendChild(option2);
-	}
+	.then(resp => resp.json())
+	.then(body => {
+		for (const item of body) { 
+			assets[item.id] = item.url;
+			const option = createElementFromHTML(`<option value="${item.id}">${item.name}</option>`);
+			const option2 = createElementFromHTML(`<option value="${item.id}">${item.name}</option>`);
+			smallImageKeySelect.appendChild(option);
+			largeImageKeySelect.appendChild(option2);
+		}
 
-	smallImageKeySelect.selectedIndex = 0;
-	largeImageKeySelect.selectedIndex = 0;
-});
+		smallImageKeySelect.selectedIndex = 0;
+		largeImageKeySelect.selectedIndex = 0;
+	});
 
 const updateInputs = () => {
-  	detailsInput.value = data.details;
-  	stateInput.value = data.state;
-  	largeImageTextInput.value = data.largeImageText;
-  	smallImageTextInput.value = data.smallImageText;
-  	largeImageKeySelect.value = data.largeImageKey;
-  	smallImageKeySelect.value = data.smallImageKey;
+	detailsInput.value = data.details;
+	stateInput.value = data.state;
+	largeImageTextInput.value = data.largeImageText;
+	smallImageTextInput.value = data.smallImageText;
+	largeImageKeySelect.value = data.largeImageKey;
+	smallImageKeySelect.value = data.smallImageKey;
 };
 
 const updatePreview = () => {
@@ -88,12 +88,12 @@ smallImageKeySelect.onchange = updatePreview;
 updateInputs();
 
 submitButton.onclick = () => {
-  	data.details = `${detailsInput.value}`;
-  	data.state = `${stateInput.value}`;
-  	data.largeImageText = `${largeImageTextInput.value}`;
-  	data.smallImageText = `${smallImageTextInput.value}`;
-  	data.largeImageKey = `${largeImageKeySelect.value}`;
-  	data.smallImageKey = `${smallImageKeySelect.value}`;
+	data.details = `${detailsInput.value}`;
+	data.state = `${stateInput.value}`;
+	data.largeImageText = `${largeImageTextInput.value}`;
+	data.smallImageText = `${smallImageTextInput.value}`;
+	data.largeImageKey = `${largeImageKeySelect.value}`;
+	data.smallImageKey = `${smallImageKeySelect.value}`;
 
 	ipcRenderer.send('asynchronous-message', data);
 
@@ -102,5 +102,3 @@ submitButton.onclick = () => {
 };
 
 setInterval(updatePreview, 100);
-
-document.onerror = console.error;
