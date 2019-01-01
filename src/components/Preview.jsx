@@ -1,5 +1,6 @@
 import React from 'react';
 import Moment from 'react-moment';
+import PropTypes from 'prop-types';
 
 class Preview extends React.Component {
     constructor(props) {
@@ -33,5 +34,15 @@ class Preview extends React.Component {
         );
     }
 }
+
+Preview.propTypes = {
+    startTime: PropTypes.instanceOf(Date).isRequired,
+    smallImageKey: PropTypes.string.isRequired,
+    largeImageKey: PropTypes.string.isRequired,
+    smallImageText: PropTypes.string.isRequired,
+    largeImageText: PropTypes.string.isRequired,
+    state: PropTypes.string.isRequired,
+    details: PropTypes.string.isRequired,
+};
 
 export default Preview;

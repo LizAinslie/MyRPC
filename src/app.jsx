@@ -5,6 +5,7 @@ import { ipcRenderer } from 'electron';
 import Column from './components/Column';
 import Grid from './components/Grid';
 import Preview from './components/Preview';
+import Header from './components/Header';
 
 const time = ipcRenderer.sendSync('synchronous-message', 'get_time');
 
@@ -50,6 +51,7 @@ export default class App extends React.Component {
 	render() {
 		return (
 			<div>
+				<Header title="MyRPC" subtitle="Easily set your Discord status to anything!" />
 				<Grid>
 					<Column>
 						<div className="ui form">
