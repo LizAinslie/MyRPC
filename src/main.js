@@ -101,7 +101,7 @@ class App {
 				this.mainWindow.webContents.openDevTools();
 			});
 		
-			if(process.platform !== 'linux'){
+			if(process.platform !== 'linux'){ //TEMPORARY FIX UNTIL RELEASES YML IS AVAILABLE
 				this.updater.check();
 			}
 		
