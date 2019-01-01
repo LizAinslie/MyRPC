@@ -56,6 +56,8 @@ autoUpdater.on('update-downloaded', () => {
 function checkForUpdates (menuItem, focusedWindow, event) { // eslint-disable-line no-unused-vars
 	updater = menuItem;
 	updater.enabled = false;
-	autoUpdater.checkForUpdates();
+	if (process.platform !== 'linux'){
+		autoUpdater.checkForUpdates();
+	}
 }
 module.exports.checkForUpdates = checkForUpdates;
