@@ -55,6 +55,7 @@
     "electron-devtools-installer": "^2.1.0",
     "electron-google-analytics": "^0.1.0",
     "electron-squirrel-startup": "^1.0.0",
+    "electron-store": "^2.0.0",
     "moment": "^2.23.0",
     "prop-types": "^15.6.2",
     "react": "^15.4.1",
