@@ -101,7 +101,9 @@ class App {
 				this.mainWindow.webContents.openDevTools();
 			});
 		
-			this.updater.check();
+			if(process.platform !== 'linux'){
+				this.updater.check();
+			}
 		
 			this.setActivity(this.rpcData);
 		});
