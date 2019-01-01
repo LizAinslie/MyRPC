@@ -1,9 +1,3 @@
-# Packages & Libs
 node_modules
-
-# Logs
-yarn-error.log
-npm-debug.log
-
-# Distribution Files
-dist
+out
+.eslintcache
