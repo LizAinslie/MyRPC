@@ -116,7 +116,9 @@ class App {
 				this.mainWindow.webContents.openDevTools();
 			});
 		
-			this.updater.check();
+			if(process.platform !== 'linux'){ //TEMPORARY FIX UNTIL RELEASES YML IS AVAILABLE
+				this.updater.check();
+			}
 		
 			this.setActivity(this.rpcData);
 		});
