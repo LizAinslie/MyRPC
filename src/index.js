@@ -152,7 +152,7 @@ class RpcApp {
 					{
 						label: 'Support Server',
 						click() {
-							analytics.pageview('https://discord.gg', '/xna9NRh', 'Support Server Invite', analyticsClientId).then(() => {
+							analytics.pageview('https://discord.gg', 'discord.gg/xna9NRh', 'Support Server Invite', analyticsClientId).then(() => {
 								shell.openExternal('https://discord.gg/xna9NRh');
 							});
 						},
@@ -162,7 +162,7 @@ class RpcApp {
 					{
 						label: 'Source Code',
 						click() {
-							analytics.pageview('https://github.com', '/RailRunner166/MyRPC', 'GitHub Page', analyticsClientId).then(() => {
+							analytics.pageview('https://github.com', 'github.com/RailRunner166/MyRPC', 'GitHub Page', analyticsClientId).then(() => {
 								shell.openExternal('https://github.com/RailRunner166/MyRPC');
 							});
 						},
@@ -171,8 +171,8 @@ class RpcApp {
 					{
 						label: 'Website',
 						click() {
-							analytics.pageview('https://railrunner16.me', '/myrpc', 'Product Website', analyticsClientId).then(() => {
-								shell.openExternal('https://railrunner16.me/myrpc');
+							analytics.pageview('https://railrunner16.me', 'railrunner16.me/MyRPC', 'Product Website', analyticsClientId).then(() => {
+								shell.openExternal('https://railrunner16.me/MyRPC');
 							});
 						},
 						icon: this.icons.globe
@@ -203,7 +203,7 @@ class RpcApp {
 			{
 				label: 'Support Server',
 				click() {
-					analytics.pageview('https://discord.gg', '/xna9NRh', 'Support Server Invite', analyticsClientId).then(() => {
+					analytics.pageview('https://discord.gg', 'discord.gg/xna9NRh', 'Support Server Invite', analyticsClientId).then(() => {
 						shell.openExternal('https://discord.gg/xna9NRh');
 					});
 				},
@@ -213,7 +213,7 @@ class RpcApp {
 			{
 				label: 'Source Code',
 				click() {
-					analytics.pageview('https://github.com', '/RailRunner166/MyRPC', 'GitHub Page', analyticsClientId).then(() => {
+					analytics.pageview('https://github.com', 'github.com/RailRunner166/MyRPC', 'GitHub Page', analyticsClientId).then(() => {
 						shell.openExternal('https://github.com/RailRunner166/MyRPC');
 					});
 				},
@@ -222,8 +222,8 @@ class RpcApp {
 			{
 				label: 'Website',
 				click() {
-					analytics.pageview('https://railrunner16.me', '/myrpc', 'Product Website', analyticsClientId).then(() => {
-						shell.openExternal('https://railrunner16.me/myrpc');
+					analytics.pageview('https://railrunner16.me', 'railrunner16.me/MyRPC', 'Product Website', analyticsClientId).then(() => {
+						shell.openExternal('https://railrunner16.me/MyRPC');
 					});
 				},
 				icon: this.icons.globe

@@ -2,12 +2,12 @@
   "name": "myrpc",
   "productName": "MyRPC",
   "version": "1.1.2",
-  "description": "",
+  "description": "Easily set your Discord status to anything!",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
-    "package": "electron-forge package --arch=ia32,x64 --platform=linux,win32,darwin",
-    "make": "electron-forge make",
+    "package": "electron-forge package --arch=ia32,x64 --platform=linux,win32",
+    "make": "electron-forge make --arch=ia32,x64",
     "publish": "electron-forge publish",
     "lint": "eslint --cache --color --ext .jsx,.js src",
     "styles": "gulp sass",
@@ -15,13 +15,14 @@
     "contrib:generate": "all-contributors generate"
   },
   "keywords": [],
-  "author": "Landon Gravat <railinator4903@gmail.com> (hrrps://railrunner16.me)",
+  "author": "Landon Gravat <railinator4903@gmail.com> (https://railrunner16.me)",
   "license": "MIT",
   "config": {
     "forge": {
       "make_targets": {
         "win32": [
-          "squirrel"
+          "squirrel",
+          "appx"
         ],
         "darwin": [
           "zip"
@@ -45,7 +46,7 @@
         "name": "MyRPC"
       },
       "windowsStoreConfig": {
-        "packageName": "",
+        "packageName": "me.railrunner16.myrpc",
         "name": "MyRPC"
       }
     }

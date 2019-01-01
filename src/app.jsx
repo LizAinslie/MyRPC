@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { ipcRenderer } from 'electron';
 
 import Column from './components/Column';
@@ -11,8 +12,6 @@ export default class App extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.images = null;
-
 		this.state = {
 			data: {
 				details: 'Using MyRPC',
@@ -22,20 +21,11 @@ export default class App extends React.Component {
 				largeImageKey: 'large_default',
 				smallImageKey: 'small_default',
 				startTime: time,
-			}
+			},
+			images: null,
 		};
 
 		this.updateData = this.updateData.bind(this);
-
-		this.getImages();
-	}
-
-	getImages() {
-		fetch('http://165.227.63.75:3500/images')
-		.then(resp => resp.json())
-		.then(body => {
-			this.images = body;
-		});
 	}
 
 	updateData(e) {
@@ -45,6 +35,15 @@ export default class App extends React.Component {
 
 		this.setState({
 			data
+		});
+	}
+
+	async componentWillMount() {
+		const resp = await fetch('http://165.227.63.75:3500/images');
+		const body = await resp.json();
+
+		this.setState({
+			images: body
 		});
 	}
 
@@ -72,14 +71,18 @@ export default class App extends React.Component {
 							</div>
 							<div className="input">
 								<label htmlFor="largeImageKey">Large Image</label>
-								<select name="largeImageKey" onChange={this.updateData}>
-									{this.images ? this.images.map(image => <option value={image.id}>{image.name}</option>) : ''}
+								<select name="largeImageKey" ref="largeImageKey" onChange={this.updateData}>
+									{this.state.images ? this.state.images.map((image, index) => 
+										<option selected={index === 0} key={index} value={image.id}>{image.name}</option>
+									) : ''}
 								</select>
 							</div>
 							<div className="input">
 								<label htmlFor="smallImageKey">Small Image</label>
-								<select name="smallImageKey" onChange={this.updateData}>
-									{this.images ? this.images.map(image => <option value={image.id}>{image.name}</option>) : ''}
+								<select name="smallImageKey" ref="smallImageKey" onChange={this.updateData}>
+									{this.state.images ? this.state.images.map((image, index) => 
+										<option selected={index === 0} key={index} value={image.id}>{image.name}</option>
+									) : ''}
 								</select>
 							</div>
 

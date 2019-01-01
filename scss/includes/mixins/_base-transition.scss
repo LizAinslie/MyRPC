@@ -1,0 +1,4 @@
+@mixin base-transition() {
+    -webkit-transition-duration: 0.4s; // Safari
+    transition-duration: 0.4s;
+}
