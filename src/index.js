@@ -1,19 +1,21 @@
-const { app, Tray, Menu, BrowserWindow, nativeImage, ipcMain, globalShortcut, shell } = require('electron');
-const path = require('path');
-const url = require('url');
-const Analytics = require('electron-google-analytics');
+import { app, Tray, Menu, BrowserWindow, nativeImage, ipcMain, globalShortcut, shell } from 'electron';
+import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
+import { enableLiveReload } from 'electron-compile';
+import Analytics from 'electron-google-analytics';
+import * as path from 'path';
+import * as url from 'url';
+import rpc from 'discord-rich-presence';
 
-const AppUpdater = require('./modules/AppUpdater');
-const ManualUpdater = require('./modules/ManualUpdater');
+const analytics = new Analytics('UA-131558223-1');
+let analyticsClientId;
 
-class App {
-	constructor(debug) {
-		this.analytics = new Analytics.default('UA-131558223-1');
-		this.rpc = require('discord-rich-presence')('528735337015410712');
-		this.updater = new AppUpdater('info');
+class RpcApp {
+	constructor() {
+		this.rpc = rpc('528735337015410712');
 
-		this.analyticsClientId = null;
-		this.debug = !!debug;
+		this.debug = process.execPath.match(/[\\/]electron/);
+		
+		if (this.debug) enableLiveReload({ strategy: 'react-hmr' });
 
 		this.startTimestamp = new Date();
 		this.rpcData = {
@@ -54,7 +56,7 @@ class App {
 		this.icons.close = process.platform === 'darwin' ? this.loadMenuIcon('close_mac') : this.loadMenuIcon('close_windows');
 	}
 
-	createWindow() {
+	async createWindow() {
 		this.mainWindow = new BrowserWindow({
 			width: 1200,
 			height: 1000,
@@ -63,10 +65,14 @@ class App {
 		});
 	
 		this.mainWindow.loadURL(url.format({
-			pathname: path.join(__dirname, 'public/index.html'),
+			pathname: path.join(__dirname, 'index.html'),
 			protocol: 'file:',
 			slashes: true,
 		}));
+		
+		if (this.debug) {
+		await installExtension(REACT_DEVELOPER_TOOLS);
+		}
 
 		if (process.platform != 'darwin') {
 			this.mainWindow.setIcon(this.icon);
@@ -102,8 +108,8 @@ class App {
 	}
 
 	async getGAClientId() {
-		const response = await this.analytics.screen('myrpc', app.getVersion(), 'me.railrunner16.myrpc', 'me.railrunner16.myrpc', 'Main');
-		this.analyticsClientId = response.clientId;
+		const response = await analytics.screen('myrpc', app.getVersion(), 'me.railrunner16.myrpc', 'me.railrunner16.myrpc', 'Main');
+		analyticsClientId = response.clientId;
 	}
 
 	initAppEvents() {
@@ -115,10 +121,6 @@ class App {
 			globalShortcut.register('CommandOrControl+Shift+I', () => {
 				this.mainWindow.webContents.openDevTools();
 			});
-		
-			if(process.platform !== 'linux'){ //TEMPORARY FIX UNTIL RELEASES YML IS AVAILABLE
-				this.updater.check();
-			}
 		
 			this.setActivity(this.rpcData);
 		});
@@ -150,7 +152,7 @@ class App {
 					{
 						label: 'Support Server',
 						click() {
-							this.analytics.pageview('https://discord.gg', '/xna9NRh', 'Support Server Invite', this.analyticsClientId).then(() => {
+							analytics.pageview('https://discord.gg', '/xna9NRh', 'Support Server Invite', analyticsClientId).then(() => {
 								shell.openExternal('https://discord.gg/xna9NRh');
 							});
 						},
@@ -160,7 +162,7 @@ class App {
 					{
 						label: 'Source Code',
 						click() {
-							this.analytics.pageview('https://github.com', '/RailRunner166/MyRPC', 'GitHub Page', this.analyticsClientId).then(() => {
+							analytics.pageview('https://github.com', '/RailRunner166/MyRPC', 'GitHub Page', analyticsClientId).then(() => {
 								shell.openExternal('https://github.com/RailRunner166/MyRPC');
 							});
 						},
@@ -169,7 +171,7 @@ class App {
 					{
 						label: 'Website',
 						click() {
-							this.analytics.pageview('https://railrunner16.me', '/myrpc', 'Product Website', this.analyticsClientId).then(() => {
+							analytics.pageview('https://railrunner16.me', '/myrpc', 'Product Website', analyticsClientId).then(() => {
 								shell.openExternal('https://railrunner16.me/myrpc');
 							});
 						},
@@ -186,11 +188,6 @@ class App {
 							app.exit();
 						},
 						icon: this.icons.close
-					},
-					{
-						label: 'Check for Updates',
-						click: ManualUpdater.checkForUpdates,
-						icon: this.icons.update
 					}
 				]
 			}
@@ -206,7 +203,7 @@ class App {
 			{
 				label: 'Support Server',
 				click() {
-					this.analytics.pageview('https://discord.gg', '/xna9NRh', 'Support Server Invite', this.analyticsClientId).then(() => {
+					analytics.pageview('https://discord.gg', '/xna9NRh', 'Support Server Invite', analyticsClientId).then(() => {
 						shell.openExternal('https://discord.gg/xna9NRh');
 					});
 				},
@@ -216,7 +213,7 @@ class App {
 			{
 				label: 'Source Code',
 				click() {
-					this.analytics.pageview('https://github.com', '/RailRunner166/MyRPC', 'GitHub Page', this.analyticsClientId).then(() => {
+					analytics.pageview('https://github.com', '/RailRunner166/MyRPC', 'GitHub Page', analyticsClientId).then(() => {
 						shell.openExternal('https://github.com/RailRunner166/MyRPC');
 					});
 				},
@@ -225,7 +222,7 @@ class App {
 			{
 				label: 'Website',
 				click() {
-					this.analytics.pageview('https://railrunner16.me', '/myrpc', 'Product Website', this.analyticsClientId).then(() => {
+					analytics.pageview('https://railrunner16.me', '/myrpc', 'Product Website', analyticsClientId).then(() => {
 						shell.openExternal('https://railrunner16.me/myrpc');
 					});
 				},
@@ -251,4 +248,4 @@ class App {
 	}
 }
 
-new App(false);
+new RpcApp();

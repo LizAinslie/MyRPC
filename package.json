@@ -1,57 +1,80 @@
 {
   "name": "myrpc",
-  "version": "1.1.1",
-  "description": "Distributed Discord RPC for @everyone!",
-  "main": "src/main.js",
-  "repository": "https://github.com/RailRunner166/MyRpc.git",
-  "author": "Landon Gravat <railinator4903@gmail.com>",
-  "license": "MIT",
-  "private": false,
+  "productName": "MyRPC",
+  "version": "1.1.2",
+  "description": "",
+  "main": "src/index.js",
   "scripts": {
-    "launch": "electron src/main.js",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "eslint --cache --color --ext .jsx,.js src",
     "styles": "gulp sass",
-    "lint": "./node_modules/.bin/eslint . --fix",
-
-    "dist:win64": "electron-builder --x64",
-    "dist:win32": "electron-builder --ia32",
-    "dist": "yarn dist:win32 && yarn dist:win64",
-    
     "contrib:add": "all-contributors add",
     "contrib:generate": "all-contributors generate"
   },
-  "build": {
-    "appId": "me.railrunner16.myrpc",
-    "productName": "MyRPC",
-    "win": {
-      "publish": [
-        "github"
-      ],
-      "target": "msi",
-      "icon": "src/assets/icons/512x512.png"
-    },
-    "mac": {
-      "category": "public.app-category.entertainment",
-      "target": "default",
-      "icon": "src/assets/icons/512x512.icns"
-    },
-    "linux": {
-      "target": "AppImage",
-      "icon": "src/assets/icons/512x512.png"
+  "keywords": [],
+  "author": "Landon Gravat <railinator4903@gmail.com> (hrrps://railrunner16.me)",
+  "license": "MIT",
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm",
+          "apk"
+        ]
+      },
+      "electronPackagerConfig": {
+        "packageManager": "yarn"
+      },
+      "electronWinstallerConfig": {
+        "name": "myrpc"
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "RailRunner166",
+        "name": "MyRPC"
+      },
+      "windowsStoreConfig": {
+        "packageName": "",
+        "name": "MyRPC"
+      }
     }
   },
   "dependencies": {
     "discord-rich-presence": "^0.0.7",
+    "electron-compile": "^6.4.4",
+    "electron-devtools-installer": "^2.1.0",
     "electron-google-analytics": "^0.1.0",
-    "electron-log": "^2.2.17",
-    "electron-updater": "^4.0.6",
+    "electron-squirrel-startup": "^1.0.0",
     "moment": "^2.23.0",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "react-hot-loader": "^3.0.0-beta.6",
+    "react-moment": "^0.8.4",
     "register-scheme": "github:devsnek/node-register-scheme"
   },
   "devDependencies": {
-    "all-contributors-cli": "^5.5.0",
-    "electron": "^4.0.0",
-    "electron-builder": "^20.38.4",
-    "eslint": "^5.11.1",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-es2015-classes": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "electron-forge": "^5.2.3",
+    "electron-prebuilt-compile": "4.0.0",
+    "eslint": "^3",
+    "eslint-config-airbnb": "^15",
+    "eslint-plugin-import": "^2",
+    "eslint-plugin-jsx-a11y": "^5",
+    "eslint-plugin-react": "^7",
     "gulp": "^4.0.0",
     "gulp-sass": "^4.0.2",
     "node-sass": "^4.11.0"
