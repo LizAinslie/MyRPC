@@ -5,16 +5,20 @@ import Analytics from 'electron-google-analytics';
 import * as path from 'path';
 import * as url from 'url';
 import rpc from 'discord-rich-presence';
-
+const Store = require('electron-store');
+const store = new Store();
 const analytics = new Analytics('UA-131558223-1');
 let analyticsClientId;
 
 class RpcApp {
 	constructor() {
-		this.rpc = rpc('528735337015410712');
+		this.clientId = store.get('clientId');
+		console.log(this.clientId)
+		// if (this.clienId == undefined) {this.clientId = "5287353370154102"}
+		this.rpc = rpc(this.clientId);
 
 		this.debug = process.execPath.match(/[\\/]electron/);
-		
+
 		if (this.debug) enableLiveReload({ strategy: 'react-hmr' });
 
 		this.startTimestamp = new Date();
@@ -30,7 +34,7 @@ class RpcApp {
 		};
 
 		this.icons = {};
-		
+
 		this.tray = null;
 		this.mainWindow = null;
 		this.icon = nativeImage.createFromPath(path.join(__dirname, 'assets/logo_square_512.png'));
@@ -63,13 +67,13 @@ class RpcApp {
 			resizable: true,
 			titleBarStyle: 'hidden',
 		});
-	
+
 		this.mainWindow.loadURL(url.format({
 			pathname: path.join(__dirname, 'index.html'),
 			protocol: 'file:',
 			slashes: true,
 		}));
-		
+
 		if (this.debug) {
 		await installExtension(REACT_DEVELOPER_TOOLS);
 		}
@@ -77,7 +81,7 @@ class RpcApp {
 		if (process.platform != 'darwin') {
 			this.mainWindow.setIcon(this.icon);
 		}
-	
+
 		this.mainWindow.on('close', event => {
 			event.preventDefault();
 			this.mainWindow.hide();
@@ -92,13 +96,21 @@ class RpcApp {
 			this.rpcData.smallImageText = data.smallImageText;
 			this.rpcData.largeImageKey = data.largeImageKey;
 			this.rpcData.smallImageKey = data.smallImageKey;
-		
+			console.log(data.appId);
+			console.log(this.clientId);
+			if ( this.clientId == data.appId ) {
+				this.setActivity(this.rpcData);
+			} else {
+				store.set("clientId", data.appId);
+				app.relaunch()
+				app.exit(0)
+			}
 			//the fuck is this? debug mode isn't on!
 			//console.debug(rpcData);
-		
+
 			this.setActivity(this.rpcData);
 		});
-		
+
 		ipcMain.on('synchronous-message', (e, action) => {
 			switch (action.toLowerCase()) {
 			case 'get_time':
@@ -117,18 +129,18 @@ class RpcApp {
 			this.buildTray();
 			this.createWindow();
 			app.setName('MyRPC');
-		
+
 			globalShortcut.register('CommandOrControl+Shift+I', () => {
 				this.mainWindow.webContents.openDevTools();
 			});
-		
+
 			this.setActivity(this.rpcData);
 		});
 
 		app.on('window-all-closed', () => {
 			app.quit();
 		});
-		
+
 		app.on('activate', () => {
 			if (this.mainWindow === null) {
 				this.createWindow();
@@ -140,7 +152,7 @@ class RpcApp {
 		if (!this.rpc || !this.mainWindow) {
 			return;
 		}
-	
+
 		return this.rpc.updatePresence(data);
 	}
 
@@ -158,7 +170,7 @@ class RpcApp {
 						},
 						icon: this.icons.discord
 					},
-					
+
 					{
 						label: 'Source Code',
 						click() {
@@ -184,7 +196,7 @@ class RpcApp {
 				submenu: [
 					{
 						label: 'Exit MyRPC',
-						click() { 
+						click() {
 							app.exit();
 						},
 						icon: this.icons.close
@@ -192,7 +204,7 @@ class RpcApp {
 				]
 			}
 		]);
-	
+
 		Menu.setApplicationMenu(windowMenu);
 	}
 
@@ -209,7 +221,7 @@ class RpcApp {
 				},
 				icon: this.icons.discord
 			},
-			
+
 			{
 				label: 'Source Code',
 				click() {
@@ -231,7 +243,7 @@ class RpcApp {
 			},
 			{
 				label: 'Exit MyRPC',
-				click() { 
+				click() {
 					app.exit();
 				},
 				icon: this.icons.close

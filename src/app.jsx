@@ -7,6 +7,9 @@ import Grid from './components/Grid';
 import Preview from './components/Preview';
 import Header from './components/Header';
 
+const Store = require('electron-store');
+const store = new Store();
+
 const time = ipcRenderer.sendSync('synchronous-message', 'get_time');
 
 export default class App extends React.Component {
@@ -22,6 +25,7 @@ export default class App extends React.Component {
 				largeImageKey: 'large_default',
 				smallImageKey: 'small_default',
 				startTime: time,
+				appId: store.get('clientId')
 			},
 			images: null,
 		};
@@ -72,21 +76,18 @@ export default class App extends React.Component {
 								<input type="text" name="smallImageText" onChange={this.updateData} value={this.state.data.smallImageText}/>
 							</div>
 							<div className="input">
-								<label htmlFor="largeImageKey">Large Image</label>
-								<select name="largeImageKey" ref="largeImageKey" onChange={this.updateData}>
-									{this.state.images ? this.state.images.map((image, index) => 
-										<option selected={index === 0} key={index} value={image.id}>{image.name}</option>
-									) : ''}
-								</select>
+								<label htmlFor="largeImageKey">Large Image Key</label>
+								<input type="text" name="largeImageKey" onChange={this.updateData} />
 							</div>
 							<div className="input">
 								<label htmlFor="smallImageKey">Small Image</label>
-								<select name="smallImageKey" ref="smallImageKey" onChange={this.updateData}>
-									{this.state.images ? this.state.images.map((image, index) => 
-										<option selected={index === 0} key={index} value={image.id}>{image.name}</option>
-									) : ''}
-								</select>
+								<input type="text" name="smallImageKey" onChange={this.updateData} />
 							</div>
+							<div className="input">
+								<label htmlFor="appId">Discord App ID (restart required on change)</label>
+								<input type="text" name="appId" onChange={this.updateData} value={this.state.data.appId}/>
+							</div>
+
 
 							<button onClick={() => ipcRenderer.send('asynchronous-message', this.state.data)}>Make it So!</button>
 						</div>
