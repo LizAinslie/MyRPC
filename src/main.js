@@ -26,17 +26,32 @@ class App {
 			largeImageKey: 'large_default',
 			smallImageKey: 'small_default'
 		};
+
+		this.icons = {};
 		
 		this.tray = null;
 		this.mainWindow = null;
 		this.icon = nativeImage.createFromPath(path.join(__dirname, 'assets/logo_square_512.png'));
 
+		this.loadIcons();
 		this.initAppEvents();
 		this.initIpcEvents();
 
 		this.buildMenu();
 
 		this.getGAClientId();
+	}
+
+	loadMenuIcon(name) {
+		return nativeImage.createFromPath(path.join(__dirname, `assets/menu_icons/${name}.png`)).resize({width: 18, height: 18, quality: 'best'})
+	}
+
+	loadIcons() {
+		this.icons.update = process.platform === 'darwin' ? this.loadMenuIcon('download_mac') : this.loadMenuIcon('download_windows');
+		this.icons.github = process.platform === 'darwin' ? this.loadMenuIcon('github_mac') : this.loadMenuIcon('github_windows');
+		this.icons.discord = process.platform === 'darwin' ? this.loadMenuIcon('discord_mac') : this.loadMenuIcon('discord_windows');
+		this.icons.globe = process.platform === 'darwin' ? this.loadMenuIcon('globe_mac') : this.loadMenuIcon('globe_windows');
+		this.icons.close = process.platform === 'darwin' ? this.loadMenuIcon('close_mac') : this.loadMenuIcon('close_windows');
 	}
 
 	createWindow() {
@@ -137,7 +152,7 @@ class App {
 								shell.openExternal('https://discord.gg/xna9NRh');
 							});
 						},
-						icon: nativeImage.createFromPath(path.join(__dirname, 'assets/menu_icons/discord.png')).resize({ width: 18, height: 18, quality: 'best' })
+						icon: this.icons.discord
 					},
 					
 					{
@@ -147,7 +162,7 @@ class App {
 								shell.openExternal('https://github.com/RailRunner166/MyRPC');
 							});
 						},
-						icon: nativeImage.createFromPath(path.join(__dirname, 'assets/Github-Logo-Black.png')).resize({width: 18, height: 18, quality: 'best'})
+						icon: this.icons.github
 					},
 					{
 						label: 'Website',
@@ -156,7 +171,7 @@ class App {
 								shell.openExternal('https://railrunner16.me/myrpc');
 							});
 						},
-						icon: nativeImage.createFromPath(path.join(__dirname, 'assets/menu_icons/globe.png')).resize({ width: 18, height: 18, quality: 'best' })
+						icon: this.icons.globe
 					}
 				]
 			},
@@ -168,12 +183,12 @@ class App {
 						click() { 
 							app.exit();
 						},
-						icon: nativeImage.createFromPath(path.join(__dirname, 'assets/menu_icons/close.png')).resize({width: 18, height: 18, quality: 'best'})
+						icon: this.icons.close
 					},
 					{
 						label: 'Check for Updates',
 						click: ManualUpdater.checkForUpdates,
-						icon: nativeImage.createFromPath(path.join(__dirname, 'assets/menu_icons/download.png')).resize({width: 18, height: 18, quality: 'best'})
+						icon: this.icons.update
 					}
 				]
 			}
@@ -193,7 +208,7 @@ class App {
 						shell.openExternal('https://discord.gg/xna9NRh');
 					});
 				},
-				icon: nativeImage.createFromPath(path.join(__dirname, 'assets/menu_icons/discord.png')).resize({ width: 18, height: 18, quality: 'best' })
+				icon: this.icons.discord
 			},
 			
 			{
@@ -203,7 +218,7 @@ class App {
 						shell.openExternal('https://github.com/RailRunner166/MyRPC');
 					});
 				},
-				icon: nativeImage.createFromPath(path.join(__dirname, 'assets/Github-Logo-Black.png')).resize({width: 18, height: 18, quality: 'best'})
+				icon: this.icons.github
 			},
 			{
 				label: 'Website',
@@ -212,7 +227,7 @@ class App {
 						shell.openExternal('https://railrunner16.me/myrpc');
 					});
 				},
-				icon: nativeImage.createFromPath(path.join(__dirname, 'assets/menu_icons/globe.png')).resize({ width: 18, height: 18, quality: 'best' })
+				icon: this.icons.globe
 
 			},
 			{
@@ -220,7 +235,7 @@ class App {
 				click() { 
 					app.exit();
 				},
-				icon: nativeImage.createFromPath(path.join(__dirname, 'assets/menu_icons/close.png')).resize({width: 18, height: 18, quality: 'best'})
+				icon: this.icons.close
 			}
 		]);
 
