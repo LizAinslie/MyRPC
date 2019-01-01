@@ -72,13 +72,13 @@ export default class App extends React.Component {
 							</div>
 							<div className="input">
 								<label htmlFor="largeImageKey">Large Image</label>
-								<select name="largeImageKey" onChange={this.updateData} value={this.state.data.largeImageKey}>
+								<select name="largeImageKey" onChange={this.updateData}>
 									{this.images ? this.images.map(image => <option value={image.id}>{image.name}</option>) : ''}
 								</select>
 							</div>
 							<div className="input">
 								<label htmlFor="smallImageKey">Small Image</label>
-								<select name="smallImageKey" onChange={this.updateData} value={this.state.data.smallImageKey}>
+								<select name="smallImageKey" onChange={this.updateData}>
 									{this.images ? this.images.map(image => <option value={image.id}>{image.name}</option>) : ''}
 								</select>
 							</div>
