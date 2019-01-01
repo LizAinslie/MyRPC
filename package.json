@@ -28,8 +28,7 @@
         ],
         "linux": [
           "deb",
-          "rpm",
-          "apk"
+          "rpm"
         ]
       },
       "electronPackagerConfig": {

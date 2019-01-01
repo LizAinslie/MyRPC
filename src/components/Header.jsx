@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 class Header extends React.Component {
     render() {
         return (
-            <h1 class="ui header">
+            <h1 className="ui header">
                 {this.props.title}
-                <span class="sub header">{this.props.subtitle}</span>
+                <span className="sub header">{this.props.subtitle}</span>
             </h1>
         );
     }
