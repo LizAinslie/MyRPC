@@ -1,13 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { ipcRenderer } from 'electron';
 
 import Column from './components/Column';
 import Grid from './components/Grid';
 import Preview from './components/Preview';
 import Header from './components/Header';
+import ButtonBar from './components/ButtonBar';
 
 const Store = require('electron-store');
+
 const store = new Store();
 
 const time = ipcRenderer.sendSync('synchronous-message', 'get_time');
@@ -24,8 +25,8 @@ export default class App extends React.Component {
 				smallImageText: 'Made by RailRunner16',
 				largeImageKey: 'large_default',
 				smallImageKey: 'small_default',
-				startTime: time,
-				appId: store.get('clientId')
+				startTimestamp: time,
+				appId: store.get('clientId'),
 			},
 			images: null,
 		};
@@ -39,7 +40,17 @@ export default class App extends React.Component {
 		data[e.target.name] = e.target.value;
 
 		this.setState({
-			data
+			data,
+		});
+	}
+	
+	setStartTimestampToCurrentTime() {
+		const data = this.state.data;
+
+		data.startTimestamp = new Date();
+
+		this.setState({
+			data,
 		});
 	}
 
@@ -48,7 +59,7 @@ export default class App extends React.Component {
 		const body = await resp.json();
 
 		this.setState({
-			images: body
+			images: body,
 		});
 	}
 
@@ -61,42 +72,52 @@ export default class App extends React.Component {
 						<div className="ui form">
 							<div className="input">
 								<label htmlFor="details">Details</label>
-								<input type="text" name="details" onChange={this.updateData} value={this.state.data.details}/>
+								<input type="text" name="details" onChange={this.updateData} value={this.state.data.details} />
 							</div>
 							<div className="input">
 								<label htmlFor="state">State</label>
-								<input type="text" name="state" onChange={this.updateData} value={this.state.data.state}/>
+								<input type="text" name="state" onChange={this.updateData} value={this.state.data.state} />
 							</div>
 							<div className="input">
 								<label htmlFor="largeImageText">Large Image Text</label>
-								<input type="text" name="largeImageText" onChange={this.updateData} value={this.state.data.largeImageText}/>
+								<input type="text" name="largeImageText" onChange={this.updateData} value={this.state.data.largeImageText} />
 							</div>
 							<div className="input">
 								<label htmlFor="smallImageText">Small Image Text</label>
-								<input type="text" name="smallImageText" onChange={this.updateData} value={this.state.data.smallImageText}/>
+								<input type="text" name="smallImageText" onChange={this.updateData} value={this.state.data.smallImageText} />
 							</div>
 							<div className="input">
 								<label htmlFor="largeImageKey">Large Image Key</label>
-								<input type="text" name="largeImageKey" onChange={this.updateData} />
+								<input type="text" name="largeImageKey" onChange={this.updateData} value={this.state.data.largeImageKey} />
 							</div>
 							<div className="input">
 								<label htmlFor="smallImageKey">Small Image</label>
-								<input type="text" name="smallImageKey" onChange={this.updateData} />
+								<input type="text" name="smallImageKey" onChange={this.updateData} value={this.state.data.smallImageKey} />
 							</div>
 							<div className="input">
 								<label htmlFor="appId">Discord App ID (restart required on change)</label>
-								<input type="text" name="appId" onChange={this.updateData} value={this.state.data.appId}/>
+								<input type="text" name="appId" onChange={this.updateData} value={this.state.data.appId} />
 							</div>
 
 
-							<button onClick={() => ipcRenderer.send('asynchronous-message', this.state.data)}>Make it So!</button>
+							<button className="button" onClick={() => ipcRenderer.send('asynchronous-message', this.state.data)}>Make it So!</button>
 						</div>
 					</Column>
 					<Column>
 						<Preview {...this.state.data} />
+
+						<hr className="ui spacer" />
+						
+						<ButtonBar buttons={[
+							{
+								text: 'Refresh Timestamp',
+								action: this.setStartTimestampToCurrentTime.bind(this),
+								bind: false
+							}
+						]} />
 					</Column>
 				</Grid>
 			</div>
 		);
 	}
-};
+}

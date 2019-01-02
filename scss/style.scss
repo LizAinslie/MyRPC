@@ -94,25 +94,8 @@ button {
 
         // TODO Fix form button alignment
         & button {
-            @include base-transition;
-
             float: right;
-
-            background-color: $blue;
-            padding: $input-pad;
-            border: none;
-            border-radius: 0.25rem;
-            color: $white;
-
-            &:hover {
-                background-color: darken($blue, 10%);
-            }
-
-            &:focus {
-                outline: none;
-
-                background-color: darken($blue, 20%);
-            }
+            margin: 0.7rem;
         }
     }
 
@@ -206,5 +189,38 @@ button {
     
             display: block;
         }
+    }
+
+    &.btn.bar {
+        width: 100%;
+        margin: auto 1.25rem;
+
+        max-width: 78%;
+        min-width: 53%;
+
+        display: -webkit-flex; // Safari
+        -webkit-justify-content: space-between; // Safari 6.1+
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.button {
+    @include base-transition;
+
+    background-color: $blue;
+    padding: $input-pad;
+    border: none;
+    border-radius: 0.25rem;
+    color: $white;
+
+    &:hover {
+        background-color: darken($blue, 10%);
+    }
+
+    &:focus {
+        outline: none;
+
+        background-color: darken($blue, 13%);
     }
 }

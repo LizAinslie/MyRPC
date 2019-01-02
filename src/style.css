@@ -96,19 +96,8 @@ button {
       .ui.form .input select:hover {
         border-color: #ffffff; }
   .ui.form button {
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
     float: right;
-    background-color: #7289DA;
-    padding: 0.875rem 1rem;
-    border: none;
-    border-radius: 0.25rem;
-    color: #ffffff; }
-    .ui.form button:hover {
-      background-color: #4a67cf; }
-    .ui.form button:focus {
-      outline: none;
-      background-color: #304eb6; }
+    margin: 0.7rem; }
 
 .ui.preview {
   padding: 1.1rem;
@@ -164,3 +153,27 @@ button {
 .ui.grid .row {
   width: 100%;
   display: block; }
+
+.ui.btn.bar {
+  width: 100%;
+  margin: auto 1.25rem;
+  max-width: 78%;
+  min-width: 53%;
+  display: -webkit-flex;
+  -webkit-justify-content: space-between;
+  display: flex;
+  justify-content: space-between; }
+
+.button {
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  background-color: #7289DA;
+  padding: 0.875rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  color: #ffffff; }
+  .button:hover {
+    background-color: #4a67cf; }
+  .button:focus {
+    outline: none;
+    background-color: #3d5dcc; }

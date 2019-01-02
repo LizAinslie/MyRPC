@@ -5,17 +5,22 @@ import Analytics from 'electron-google-analytics';
 import * as path from 'path';
 import * as url from 'url';
 import rpc from 'discord-rich-presence';
-const Store = require('electron-store');
-const store = new Store();
-const analytics = new Analytics('UA-131558223-1');
-let analyticsClientId;
+import Store from 'electron-store';
 
 class RpcApp {
 	constructor() {
-		this.clientId = store.get('clientId');
-		console.log(this.clientId)
-		// if (this.clienId == undefined) {this.clientId = "5287353370154102"}
+		this.store = new Store();
+		this.clientId = this.store.get('clientId');
+
+		if (this.clienId == undefined) {
+			this.clientId = '5287353370154102';
+			this.store.set('clientId', '5287353370154102');
+		}
+		
 		this.rpc = rpc(this.clientId);
+
+		this.analytics = new Analytics('UA-131558223-1');
+		this.analyticsClientId = null;
 
 		this.debug = process.execPath.match(/[\\/]electron/);
 
@@ -30,7 +35,7 @@ class RpcApp {
 			largeImageText: 'MyRPC',
 			smallImageText: 'Made by RailRunner16',
 			largeImageKey: 'large_default',
-			smallImageKey: 'small_default'
+			smallImageKey: 'small_default',
 		};
 
 		this.icons = {};
@@ -49,7 +54,7 @@ class RpcApp {
 	}
 
 	loadMenuIcon(name) {
-		return nativeImage.createFromPath(path.join(__dirname, `assets/menu_icons/${name}.png`)).resize({width: 18, height: 18, quality: 'best'})
+		return nativeImage.createFromPath(path.join(__dirname, `assets/menu_icons/${name}.png`)).resize({ width: 18, height: 18, quality: 'best' });
 	}
 
 	loadIcons() {
@@ -75,14 +80,14 @@ class RpcApp {
 		}));
 
 		if (this.debug) {
-		await installExtension(REACT_DEVELOPER_TOOLS);
+			await installExtension(REACT_DEVELOPER_TOOLS);
 		}
 
 		if (process.platform != 'darwin') {
 			this.mainWindow.setIcon(this.icon);
 		}
 
-		this.mainWindow.on('close', event => {
+		this.mainWindow.on('close', (event) => {
 			event.preventDefault();
 			this.mainWindow.hide();
 		});
@@ -96,17 +101,19 @@ class RpcApp {
 			this.rpcData.smallImageText = data.smallImageText;
 			this.rpcData.largeImageKey = data.largeImageKey;
 			this.rpcData.smallImageKey = data.smallImageKey;
-			console.log(data.appId);
-			console.log(this.clientId);
-			if ( this.clientId == data.appId ) {
+
+			// console.log(data.appId);
+			// console.log(this.clientId);
+
+			if (this.clientId == data.appId) {
 				this.setActivity(this.rpcData);
 			} else {
-				store.set("clientId", data.appId);
-				app.relaunch()
-				app.exit(0)
+				this.store.set('clientId', data.appId);
+				app.relaunch();
+				app.exit(0);
 			}
-			//the fuck is this? debug mode isn't on!
-			//console.debug(rpcData);
+			// the fuck is this? debug mode isn't on!
+			// console.debug(rpcData);
 
 			this.setActivity(this.rpcData);
 		});
@@ -120,8 +127,8 @@ class RpcApp {
 	}
 
 	async getGAClientId() {
-		const response = await analytics.screen('myrpc', app.getVersion(), 'me.railrunner16.myrpc', 'me.railrunner16.myrpc', 'Main');
-		analyticsClientId = response.clientId;
+		const response = await this.analytics.screen('myrpc', app.getVersion(), 'me.railrunner16.myrpc', 'me.railrunner16.myrpc', 'Main');
+		this.analyticsClientId = response.clientId;
 	}
 
 	initAppEvents() {
@@ -164,32 +171,32 @@ class RpcApp {
 					{
 						label: 'Support Server',
 						click() {
-							analytics.pageview('https://discord.gg', 'discord.gg/xna9NRh', 'Support Server Invite', analyticsClientId).then(() => {
+							this.analytics.pageview('https://discord.gg', 'discord.gg/xna9NRh', 'Support Server Invite', this.analyticsClientId).then(() => {
 								shell.openExternal('https://discord.gg/xna9NRh');
 							});
 						},
-						icon: this.icons.discord
+						icon: this.icons.discord,
 					},
 
 					{
 						label: 'Source Code',
 						click() {
-							analytics.pageview('https://github.com', 'github.com/RailRunner166/MyRPC', 'GitHub Page', analyticsClientId).then(() => {
+							this.analytics.pageview('https://github.com', 'github.com/RailRunner166/MyRPC', 'GitHub Page', this.analyticsClientId).then(() => {
 								shell.openExternal('https://github.com/RailRunner166/MyRPC');
 							});
 						},
-						icon: this.icons.github
+						icon: this.icons.github,
 					},
 					{
 						label: 'Website',
 						click() {
-							analytics.pageview('https://railrunner16.me', 'railrunner16.me/MyRPC', 'Product Website', analyticsClientId).then(() => {
+							this.analytics.pageview('https://railrunner16.me', 'railrunner16.me/MyRPC', 'Product Website', this.analyticsClientId).then(() => {
 								shell.openExternal('https://railrunner16.me/MyRPC');
 							});
 						},
-						icon: this.icons.globe
-					}
-				]
+						icon: this.icons.globe,
+					},
+				],
 			},
 			{
 				label: 'Actions',
@@ -199,10 +206,10 @@ class RpcApp {
 						click() {
 							app.exit();
 						},
-						icon: this.icons.close
-					}
-				]
-			}
+						icon: this.icons.close,
+					},
+				],
+			},
 		]);
 
 		Menu.setApplicationMenu(windowMenu);
@@ -215,30 +222,30 @@ class RpcApp {
 			{
 				label: 'Support Server',
 				click() {
-					analytics.pageview('https://discord.gg', 'discord.gg/xna9NRh', 'Support Server Invite', analyticsClientId).then(() => {
+					this.analytics.pageview('https://discord.gg', 'discord.gg/xna9NRh', 'Support Server Invite', this.analyticsClientId).then(() => {
 						shell.openExternal('https://discord.gg/xna9NRh');
 					});
 				},
-				icon: this.icons.discord
+				icon: this.icons.discord,
 			},
 
 			{
 				label: 'Source Code',
 				click() {
-					analytics.pageview('https://github.com', 'github.com/RailRunner166/MyRPC', 'GitHub Page', analyticsClientId).then(() => {
+					this.analytics.pageview('https://github.com', 'github.com/RailRunner166/MyRPC', 'GitHub Page', this.analyticsClientId).then(() => {
 						shell.openExternal('https://github.com/RailRunner166/MyRPC');
 					});
 				},
-				icon: this.icons.github
+				icon: this.icons.github,
 			},
 			{
 				label: 'Website',
 				click() {
-					analytics.pageview('https://railrunner16.me', 'railrunner16.me/MyRPC', 'Product Website', analyticsClientId).then(() => {
+					this.analytics.pageview('https://railrunner16.me', 'railrunner16.me/MyRPC', 'Product Website', this.analyticsClientId).then(() => {
 						shell.openExternal('https://railrunner16.me/MyRPC');
 					});
 				},
-				icon: this.icons.globe
+				icon: this.icons.globe,
 
 			},
 			{
@@ -246,8 +253,8 @@ class RpcApp {
 				click() {
 					app.exit();
 				},
-				icon: this.icons.close
-			}
+				icon: this.icons.close,
+			},
 		]);
 
 		this.tray.setToolTip('MyRPC');
