@@ -1,5 +1,4 @@
 language: node_js
-
 os:
 - windows
 - linux
@@ -20,7 +19,8 @@ script:
 deploy:
 - on:
     branch: master
-    condition: -z $(git tag --points-at $TRAVIS_COMMIT)
+    tags: true
+    commits: false
   provider: releases
   api_key:
     secure: "M2GWFX8ePoIGz/2OaIa/rwYyocITz05WBMSi6cetduXutLc2FMICiaOu7HH42SRl2r+ZLsCGvO93RBevTZrq9LPnprGj9aTRfZIJQarv63g/+LG/lsS/VfkqyzweXWEl91fV6MJj+C/ClMlQ1QB3Q6xUqWG+iMmPmL8zpx1mvF+D4pLWUsMfx5mDtZ4UJXxux0pmBPVjCSqjGmP/nIEeK3WW2OL2n/wFMUQDVLV44w8XI0i6O7z191nt8XByrzyjz0fvwW8lzSsGgn6VZvfSJd9sNT3VOMqIFI7QWcWHSbyEqffXkgaPru1UG/udVD+FBcavl5sLxIW3gg4oguVsL0hvLa5B5QG3r8IXuauVNs7cnqWlHKZJVd2ZClgMBXwrqz2hqpr69FuEKRqzUUJUjQAvJgGrUuYQodAiZcRsf+Ba89NcAojm7FVXbftCmYnrKqu0iP1mFdHgEvLT7uKACpFlz712incOgCSYG/iD3cTJ9rrPT0lMiJJgjMXE/r6QqsPQMxo9AFJSoakz3e5nQqyT6+/61vdvwdPXwAP5sjUgVikCuYyj3N/PB4dWdNL0/Za49UBf1DahUwco5Jb9DRlHEXZ/hox0zdwuOMi09dp9nAKbcM8I70AN+m9zceUxzoHNJGqMWDDqWNyrQWNu5dcTHaOsRVcPSMVpOmY4j2o="
@@ -31,6 +31,7 @@ deploy:
   - $TRAVIS_BUILD_DIR/out/make/squirrel.windows/x64/MyRPC-1.1.2 Setup.exe
   skip_cleanup: true
 - on:
+    branch: master
     tags: true
     commits: false
   provider: script
