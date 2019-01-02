@@ -1,0 +1,36 @@
+version: 1.0.{build}
+pull_requests:
+  do_not_increment_build_number: true
+branches:
+  only:
+  - master
+skip_non_tags: true
+image:
+- Ubuntu1804
+- Visual Studio 2017
+platform:
+- x86
+- x64
+install:
+- ps: Install-Product node 11
+- npm install
+build_script:
+- sh: npm run make
+artifacts:
+- path: MyRPC_v$(APPVEYOR_REPO_TAG_NAME)_Win32_x64.exe
+  name: Win64
+- path: MyRPC_v$(APPVEYOR_REPO_TAG_NAME)_Win32_x32.exe
+  name: Win32
+- path: MyRPC_v$(APPVEYOR_REPO_TAG_NAME)_Debian_x64.deb
+  name: Deb64
+- path: MyRPC_v$(APPVEYOR_REPO_TAG_NAME)_Debian_x32.deb
+  name: Deb32
+deploy:
+- provider: GitHub
+  tag: $(APPVEYOR_REPO_TAG_NAME)
+  release: MyRPC $(AppVersion)
+  description: '"[Download](https://railrunner16.me/MyRPC/#downloads)\n[Patreon](https://www.patreon.com/railrunner16)\n[Discord](https://discord.gg/)"'
+  auth_token:
+    secure: kOlxbKcceH6UIHZMhweWJGtXH+JG3y0xAPWLNe0gKvkfyVOnM3IQMNbINKU3FNi5
+  artifact: Deb32,Deb64,Win32,Win64
+  force_update: true
