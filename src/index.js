@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 
 import { app, Tray, Menu, BrowserWindow, nativeImage, ipcMain, globalShortcut, shell } from 'electron';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
@@ -7,28 +8,30 @@ import * as path from 'path';
 import * as url from 'url';
 import rpc from 'discord-rich-presence';
 import * as fs from 'fs';
+
 if(require('electron-squirrel-startup')) app.quit();
+
 class RpcApp {
 	constructor() {
-		this.conf = require('nconf')
-		this.settingsLocation = path.join(app.getPath("documents"), "MyRPC.conf.json")
-		console.log(this.settingsLocation) 
-		if (fs.existsSync(this.settingsLocation)) {
-			this.conf.file({ file: this.settingsLocation })
-		} else {
-			fs.writeFileSync(this.settingsLocation, JSON.stringify({client: {id: "528735337015410712"}}))
-			console.log('File is created successfully.');
-			this.conf.file({ file: this.settingsLocation })
+		this.debug = process.execPath.match(/[\\/]electron/);
+
+		this.conf = require('nconf');
+		this.settingsLocation = path.join(app.getPath('documents'), 'MyRPC.conf.json');
+		if (this.debug) console.log(this.settingsLocation);
+
+		if (fs.existsSync(this.settingsLocation)) this.conf.file({ file: this.settingsLocation });
+		else {
+			fs.writeFileSync(this.settingsLocation, JSON.stringify({client: {id: '528735337015410712'}}));
+			if (this.debug) console.log('File is created successfully.');
+			this.conf.file({ file: this.settingsLocation });
 		}
 		
 		this.clientId = this.conf.get('client:id');
-		console.log(this.clientId)
+		if (this.debug) console.log(this.clientId);
 		this.rpc = rpc(this.clientId);
 
 		this.analytics = new Analytics('UA-131558223-1');
 		this.analyticsClientId = null;
-
-		this.debug = process.execPath.match(/[\\/]electron/);
 
 		if (this.debug) enableLiveReload({ strategy: 'react-hmr' });
 
@@ -46,8 +49,10 @@ class RpcApp {
 				largeImageKey: 'large_default',
 				smallImageKey: 'small_default',
 			};
-			this.conf.set("rpc:data", this.rpcData);
-			this.conf.save((e) => console.log(e));
+			this.conf.set('rpc:data', this.rpcData);
+			this.conf.save(e => {
+				if (this.debug) console.log(e);
+			});
 		}
 		this.icons = {};
 
@@ -114,16 +119,16 @@ class RpcApp {
 			this.rpcData.smallImageKey = data.smallImageKey;
 			this.rpcData.startTimestamp = data.startTimestamp;
 
-			// console.log(data.appId);
-			// console.log(this.clientId);
+			if (this.debug) console.log(data.appId);
+			if (this.debug) console.log(this.clientId);
 
 			if (this.clientId == data.appId) {
 				this.setActivity(this.rpcData);
-				this.conf.set('rpc:data', this.rpcData);
-				this.conf.save((e) => console.log(e));
 			} else {
 				this.conf.set('client:id', data.appId);
-				this.conf.save((e) => console.log(e));
+				this.conf.save(e => {
+					if (this.debug) console.log(e);
+				});
 				app.relaunch();
 				app.exit(0);
 			}
@@ -172,7 +177,9 @@ class RpcApp {
 		}
 
 		this.conf.set('rpc:data', data);
-		this.conf.save((e) => console.log(e));
+		this.conf.save(e => {
+			if (this.debug) console.log(e);
+		});
 		return this.rpc.updatePresence(data);
 	}
 
