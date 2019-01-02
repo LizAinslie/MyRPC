@@ -1,4 +1,5 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors)
+[![](https://img.shields.io/travis/railrunner166/myrpc.svg?style=flat-square)](https://travis-ci.org/RailRunner166/MyRPC)
 
 ---
 
