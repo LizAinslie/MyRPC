@@ -31,7 +31,7 @@ deploy:
   - $TRAVIS_BUILD_DIR/out/make/squirrel.windows/x64/MyRPC-1.1.2 Setup.exe
   skip_cleanup: true
 - on:
-    branch: master
-    condition: -z $(git tag --points-at $TRAVIS_COMMIT)
+    tags: true
+    commits: false
   provider: script
   script: $TRAVIS_BUILD_DIR/scripts/version_bump.sh

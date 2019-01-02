@@ -34,7 +34,7 @@
         "packageManager": "yarn"
       },
       "electronWinstallerConfig": {
-        "name": "myrpc"
+        "name": "MyRPC"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
@@ -53,31 +53,30 @@
     "electron-compile": "^6.4.4",
     "electron-devtools-installer": "^2.1.0",
     "electron-google-analytics": "^0.1.0",
-    "electron-packager": "11.2.1",
     "electron-squirrel-startup": "^1.0.0",
     "moment": "^2.23.0",
     "nconf": "^0.10.0",
     "platform-folders": "^0.2.7",
     "prop-types": "^15.6.2",
-    "react": "^15.4.1",
-    "react-dom": "^15.4.1",
-    "react-hot-loader": "^3.0.0-beta.6",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-hot-loader": "^4.6.3",
     "react-moment": "^0.8.4",
     "register-scheme": "github:devsnek/node-register-scheme"
   },
   "devDependencies": {
-    "all-contributors-cli": "^5.5.0",
+    "all-contributors-cli": "^5.6.0",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-plugin-transform-es2015-classes": "^6.24.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "electron-forge": "^5.2.3",
     "electron-prebuilt-compile": "4.0.0",
-    "eslint": "^3",
-    "eslint-config-airbnb": "^15",
+    "eslint": "^5.11.1",
+    "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2",
-    "eslint-plugin-jsx-a11y": "^5",
-    "eslint-plugin-react": "^7",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.12.1",
     "gulp": "^4.0.0",
     "gulp-sass": "^4.0.2",
     "node-sass": "^4.11.0"
