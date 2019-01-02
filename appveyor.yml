@@ -34,3 +34,5 @@ deploy:
     secure: kOlxbKcceH6UIHZMhweWJGtXH+JG3y0xAPWLNe0gKvkfyVOnM3IQMNbINKU3FNi5
   artifact: Deb32,Deb64,Win32,Win64
   force_update: true
+on:
+  APPVEYOR_REPO_TAG: true
