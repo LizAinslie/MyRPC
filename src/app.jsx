@@ -6,30 +6,32 @@ import Grid from './components/Grid';
 import Preview from './components/Preview';
 import Header from './components/Header';
 import ButtonBar from './components/ButtonBar';
-
-const Store = require('electron-store');
-
-const store = new Store();
+import * as fs from 'fs';
+import * as path from 'path';
+import getPath from 'platform-folders';
+const settingsPath = path.join(getPath("documents"), "MyRPC.conf.json");
+const nconf = require('nconf').file({ file: settingsPath })
 
 const time = ipcRenderer.sendSync('synchronous-message', 'get_time');
-
 export default class App extends React.Component {
 	constructor(props) {
 		super(props);
-
-		this.state = {
+		this.state = {};
+		this.state.data = nconf.get('rpc:data');
+		this.state.data.appId = nconf.get("client:id");
+		if (this.state.data === undefined) this.state = {
 			data: {
+				startTimestamp: time,
 				details: 'Using MyRPC',
 				state: 'Being totally awesome',
 				largeImageText: 'MyRPC',
 				smallImageText: 'Made by RailRunner16',
 				largeImageKey: 'large_default',
 				smallImageKey: 'small_default',
-				startTimestamp: time,
-				appId: store.get('clientId'),
-			},
-			images: null,
+				appId: nconf.get("client:id")
+			}
 		};
+
 
 		this.updateData = this.updateData.bind(this);
 	}

@@ -5,18 +5,22 @@ import Analytics from 'electron-google-analytics';
 import * as path from 'path';
 import * as url from 'url';
 import rpc from 'discord-rich-presence';
-import Store from 'electron-store';
-
+import * as fs from 'fs';
 class RpcApp {
 	constructor() {
-		this.store = new Store();
-		this.clientId = this.store.get('clientId');
-
-		if (this.clientId == undefined) {
-			this.clientId = '528735337015410712';
-			this.store.set('clientId', '528735337015410712');
+		this.conf = require('nconf')
+		this.settingsLocation = path.join(app.getPath("documents"), "MyRPC.conf.json")
+		console.log(this.settingsLocation) 
+		if (fs.existsSync(this.settingsLocation)) {
+			this.conf.file({ file: this.settingsLocation })
+		} else {
+			fs.writeFileSync(this.settingsLocation, JSON.stringify({client: {id: "528735337015410712"}}))
+			console.log('File is created successfully.');
+			this.conf.file({ file: this.settingsLocation })
 		}
 		
+		this.clientId = this.conf.get('client:id');
+		console.log(this.clientId)
 		this.rpc = rpc(this.clientId);
 
 		this.analytics = new Analytics('UA-131558223-1');
@@ -28,18 +32,21 @@ class RpcApp {
 
 		this.startTimestamp = Date.now();
 
-		this.rpcData = this.store.get('rpcData');
-		if (this.rpcData === undefined) this.rpcData = {
-			startTimestamp: this.startTimestamp,
-			instance: true,
-			details: 'Using MyRPC',
-			state: 'Being totally awesome',
-			largeImageText: 'MyRPC',
-			smallImageText: 'Made by RailRunner16',
-			largeImageKey: 'large_default',
-			smallImageKey: 'small_default',
-		};
-
+		this.rpcData = this.conf.get('rpc:data');
+		if (this.rpcData === undefined) {
+			this.rpcData = {
+				startTimestamp: this.startTimestamp,
+				instance: true,
+				details: 'Using MyRPC',
+				state: 'Being totally awesome',
+				largeImageText: 'MyRPC',
+				smallImageText: 'Made by RailRunner16',
+				largeImageKey: 'large_default',
+				smallImageKey: 'small_default',
+			};
+			this.conf.set("rpc:data", this.rpcData);
+			this.conf.save((e) => console.log(e));
+		}
 		this.icons = {};
 
 		this.tray = null;
@@ -110,9 +117,11 @@ class RpcApp {
 
 			if (this.clientId == data.appId) {
 				this.setActivity(this.rpcData);
-				this.store.set('rpcData', this.rpcData);
+				this.conf.set('rpc:data', this.rpcData);
+				this.conf.save((e) => console.log(e));
 			} else {
-				this.store.set('clientId', data.appId);
+				this.conf.set('client:id', data.appId);
+				this.conf.save((e) => console.log(e));
 				app.relaunch();
 				app.exit(0);
 			}
@@ -160,7 +169,8 @@ class RpcApp {
 			return;
 		}
 
-		this.store.set('rpcData', data);
+		this.conf.set('rpc:data', data);
+		this.conf.save((e) => console.log(e));
 		return this.rpc.updatePresence(data);
 	}
 
