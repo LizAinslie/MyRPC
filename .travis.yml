@@ -4,6 +4,12 @@ os:
 - windows
 - linux
 - osx
+addons:
+  apt:
+    packages:
+      - gcc-multilib
+      - g++-multilib
+      - libc6-dev-i386
 before_install:
 - export PATH="$HOME/.yarn/bin:$PATH"
 install:
