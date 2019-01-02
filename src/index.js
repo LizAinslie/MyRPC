@@ -1,3 +1,4 @@
+
 import { app, Tray, Menu, BrowserWindow, nativeImage, ipcMain, globalShortcut, shell } from 'electron';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import { enableLiveReload } from 'electron-compile';
@@ -6,6 +7,7 @@ import * as path from 'path';
 import * as url from 'url';
 import rpc from 'discord-rich-presence';
 import * as fs from 'fs';
+if(require('electron-squirrel-startup')) app.quit();
 class RpcApp {
 	constructor() {
 		this.conf = require('nconf')
