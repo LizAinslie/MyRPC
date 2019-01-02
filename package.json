@@ -27,8 +27,7 @@
           "zip"
         ],
         "linux": [
-          "deb",
-          "rpm"
+          "deb"
         ]
       },
       "electronPackagerConfig": {
@@ -55,8 +54,9 @@
     "electron-devtools-installer": "^2.1.0",
     "electron-google-analytics": "^0.1.0",
     "electron-squirrel-startup": "^1.0.0",
-    "electron-store": "^2.0.0",
     "moment": "^2.23.0",
+    "nconf": "^0.10.0",
+    "platform-folders": "^0.2.7",
     "prop-types": "^15.6.2",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
