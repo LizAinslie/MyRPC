@@ -10,6 +10,7 @@ addons:
       - gcc-multilib
       - g++-multilib
       - libc6-dev-i386
+      - fakeroot
 before_install:
 - export PATH="$HOME/.yarn/bin:$PATH"
 install:
