@@ -12,9 +12,9 @@ class RpcApp {
 		this.store = new Store();
 		this.clientId = this.store.get('clientId');
 
-		if (this.clienId == undefined) {
-			this.clientId = '5287353370154102';
-			this.store.set('clientId', '5287353370154102');
+		if (this.clientId == undefined) {
+			this.clientId = '528735337015410712';
+			this.store.set('clientId', '528735337015410712');
 		}
 		
 		this.rpc = rpc(this.clientId);
@@ -26,8 +26,10 @@ class RpcApp {
 
 		if (this.debug) enableLiveReload({ strategy: 'react-hmr' });
 
-		this.startTimestamp = new Date();
-		this.rpcData = {
+		this.startTimestamp = Date.now();
+
+		this.rpcData = this.store.get('rpcData');
+		if (this.rpcData === undefined) this.rpcData = {
 			startTimestamp: this.startTimestamp,
 			instance: true,
 			details: 'Using MyRPC',
@@ -101,21 +103,19 @@ class RpcApp {
 			this.rpcData.smallImageText = data.smallImageText;
 			this.rpcData.largeImageKey = data.largeImageKey;
 			this.rpcData.smallImageKey = data.smallImageKey;
+			this.rpcData.startTimestamp = data.startTimestamp;
 
 			// console.log(data.appId);
 			// console.log(this.clientId);
 
 			if (this.clientId == data.appId) {
 				this.setActivity(this.rpcData);
+				this.store.set('rpcData', this.rpcData);
 			} else {
 				this.store.set('clientId', data.appId);
 				app.relaunch();
 				app.exit(0);
 			}
-			// the fuck is this? debug mode isn't on!
-			// console.debug(rpcData);
-
-			this.setActivity(this.rpcData);
 		});
 
 		ipcMain.on('synchronous-message', (e, action) => {
@@ -160,6 +160,7 @@ class RpcApp {
 			return;
 		}
 
+		this.store.set('rpcData', data);
 		return this.rpc.updatePresence(data);
 	}
 
@@ -266,5 +267,7 @@ class RpcApp {
 		});
 	}
 }
+
+process.on('unhandledRejection', console.log);
 
 new RpcApp();

@@ -36,7 +36,7 @@ class Preview extends React.Component {
 }
 
 Preview.propTypes = {
-	startTimestamp: PropTypes.instanceOf(Date).isRequired,
+	startTimestamp: PropTypes.instanceOf(new Date()).isRequired,
 	smallImageKey: PropTypes.string.isRequired,
 	largeImageKey: PropTypes.string.isRequired,
 	smallImageText: PropTypes.string.isRequired,

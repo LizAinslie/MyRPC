@@ -47,7 +47,7 @@ export default class App extends React.Component {
 	setStartTimestampToCurrentTime() {
 		const data = this.state.data;
 
-		data.startTimestamp = new Date();
+		data.startTimestamp = Date.now();
 
 		this.setState({
 			data,
