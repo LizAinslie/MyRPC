@@ -1,6 +1,4 @@
 language: node_js
-node:
-- "10.0"
 
 os:
 - windows
