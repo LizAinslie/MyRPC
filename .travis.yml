@@ -3,7 +3,6 @@ node_js:
 - 10
 os:
 - linux
-- osx
 addons:
   apt:
     packages:
