@@ -1,5 +1,6 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors)
-[![](https://img.shields.io/travis/com/MyRPC/MyRPC.svg?style=flat-square)](https://travis-ci.com/MyRPC/MyRPC)
+[![](https://img.shields.io/travis/com/MyRPC/MyRPC.svg?style=flat-square&logo=travis)](https://travis-ci.com/MyRPC/MyRPC)
+[![](https://img.shields.io/discord/528949913103499265.svg?style=flat-square&logo=discord&label=&colorB=7892da&maxAge=0)](https://discord.gg/xna9NRh)
 
 ---
 
