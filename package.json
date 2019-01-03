@@ -49,6 +49,8 @@
     }
   },
   "dependencies": {
+    "auto-launch": "^5.0.5",
+    "datconfig-parser": "^1.0.2",
     "discord-rich-presence": "^0.0.7",
     "electron-compile": "^6.4.4",
     "electron-devtools-installer": "^2.1.0",

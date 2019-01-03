@@ -4,6 +4,7 @@ import { app, Tray, Menu, BrowserWindow, nativeImage, ipcMain, globalShortcut, s
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import { enableLiveReload } from 'electron-compile';
 import Analytics from 'electron-google-analytics';
+import AutoLaunch from 'auto-launch';
 import * as path from 'path';
 import * as url from 'url';
 import rpc from 'discord-rich-presence';
@@ -15,26 +16,61 @@ class RpcApp {
 	constructor() {
 		this.debug = process.execPath.match(/[\\/]electron/);
 
-		this.conf = require('nconf');
-		this.settingsLocation = path.join(app.getPath('documents'), 'MyRPC.conf.json');
-		if (this.debug) console.log(this.settingsLocation);
-
-		if (fs.existsSync(this.settingsLocation)) this.conf.file({ file: this.settingsLocation });
-		else {
-			fs.writeFileSync(this.settingsLocation, JSON.stringify({client: {id: '528735337015410712'}}));
-			if (this.debug) console.log('File is created successfully.');
-			this.conf.file({ file: this.settingsLocation });
-		}
-		
-		this.clientId = this.conf.get('client:id');
-		if (this.debug) console.log(this.clientId);
-		this.rpc = rpc(this.clientId);
-
-		this.analytics = new Analytics('UA-131558223-1');
-		this.analyticsClientId = null;
+		this.initConfig();
+		this.initRpcClient();
+		this.initAnalytics();
 
 		if (this.debug) enableLiveReload({ strategy: 'react-hmr' });
 
+		this.initRpcData();
+
+		this.icons = {};
+
+		this.tray = null;
+		this.mainWindow = null;
+		this.icon = nativeImage.createFromPath(path.join(__dirname, 'assets/logo_square_512.png'));
+
+		this.loadIcons();
+		this.initAppEvents();
+		this.initIpcEvents();
+
+		this.buildMenu();
+
+		this.getGAClientId();
+	}
+
+	initAutoLaunch() {
+		this.autoLaunch = new AutoLaunch({
+			name: 'MyRPC',
+		});
+
+		this.autoLaunch.enable();
+	}
+
+	toggleAutoLaunch() {
+		this.autoLaunch.isEnabled().then(enabled => {
+			if (enabled) {
+				this.autoLaunch.disable();
+				return false;
+			} else {
+				this.autoLaunch.enable();
+				return true;
+			}
+		});
+	}
+
+	initAnalytics() {
+		this.analytics = new Analytics('UA-131558223-1');
+		this.analyticsClientId = null;
+	}
+
+	initRpcClient() {
+		this.clientId = this.conf.get('client:id');
+		if (this.debug) console.log(this.clientId);
+		this.rpc = rpc(this.clientId);
+	}
+
+	initRpcData() {
 		this.startTimestamp = Date.now();
 
 		this.rpcData = this.conf.get('rpc:data');
@@ -49,24 +85,26 @@ class RpcApp {
 				largeImageKey: 'large_default',
 				smallImageKey: 'small_default',
 			};
+			
 			this.conf.set('rpc:data', this.rpcData);
 			this.conf.save(e => {
 				if (this.debug) console.log(e);
 			});
 		}
-		this.icons = {};
+	}
 
-		this.tray = null;
-		this.mainWindow = null;
-		this.icon = nativeImage.createFromPath(path.join(__dirname, 'assets/logo_square_512.png'));
+	initConfig() {
+		this.conf = require('nconf');
+		this.settingsLocation = path.join(app.getPath('documents'), 'MyRPC.conf.json');
+		
+		if (this.debug) console.log(this.settingsLocation);
 
-		this.loadIcons();
-		this.initAppEvents();
-		this.initIpcEvents();
-
-		this.buildMenu();
-
-		this.getGAClientId();
+		if (fs.existsSync(this.settingsLocation)) this.conf.file({ file: this.settingsLocation });
+		else {
+			fs.writeFileSync(this.settingsLocation, JSON.stringify({client: {id: '528735337015410712'}}));
+			if (this.debug) console.log('File is created successfully.');
+			this.conf.file({ file: this.settingsLocation });
+		}
 	}
 
 	loadMenuIcon(name) {
