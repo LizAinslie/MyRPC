@@ -5,9 +5,9 @@
 
 MyRPC is a custom status tool for Discord
 
-**Manuals:**
-- [User Manual](https://github.com/RailRunner166/MyRPC/wiki/User-Manual)
-- [Developer Manual](https://github.com/RailRunner166/MyRPC/wiki/Developer-Manual)
+**Important Manuals:**
+- [User Manual](https://github.com/MyRPC/MyRPC/wiki/%5BManual%5D-User-Instructions)
+- [Developer Manual](https://github.com/MyRPC/MyRPC/wiki/%5BManual%5D-Developer-Instructions)
 
 ## Contributors
 
