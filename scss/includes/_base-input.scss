@@ -1,3 +1,5 @@
+@import 'vars';
+
 @mixin base-input() {
     border: 1px solid $d-gray;
     border-radius: 0.25rem;

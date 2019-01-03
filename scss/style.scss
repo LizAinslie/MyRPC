@@ -2,8 +2,8 @@
 @import 'includes/vars';
 @import 'includes/reset';
 
-@import 'includes/mixins/base-input';
-@import 'includes/mixins/base-transition';
+@import 'includes/base-input';
+@import 'includes/base-transition';
 
 body {
     -webkit-app-region: drag;

@@ -1,13 +1,13 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors)
-[![](https://img.shields.io/travis/RailRunner166/MyRPC.svg?style=flat-square)](https://travis-ci.org/RailRunner166/MyRPC)
+[![](https://img.shields.io/travis/com/MyRPC/MyRPC.svg?style=flat-square)](https://travis-ci.com/MyRPC/MyRPC)
 
 ---
 
 MyRPC is a custom status tool for Discord
 
-**Manuals:**
-- [User Manual](https://github.com/RailRunner166/MyRPC/wiki/User-Manual)
-- [Developer Manual](https://github.com/RailRunner166/MyRPC/wiki/Developer-Manual)
+**Important Manuals:**
+- [User Manual](https://github.com/MyRPC/MyRPC/wiki/%5BManual%5D-User-Instructions)
+- [Developer Manual](https://github.com/MyRPC/MyRPC/wiki/%5BManual%5D-Developer-Instructions)
 
 ## Contributors
 
