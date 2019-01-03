@@ -16,6 +16,15 @@ class RpcApp {
 	constructor() {
 		this.debug = process.execPath.match(/[\\/]electron/);
 
+		this.conf = null;
+		this.rpcData = null;
+		this.autoLaunch = null;
+		this.analytics = null;
+		this.analyticsClientId = null;
+		this.clientId = null;
+		this.rpc = null;
+		this.settingsLocation = null;
+
 		this.initConfig();
 		this.initRpcClient();
 		this.initAnalytics();
@@ -155,7 +164,7 @@ class RpcApp {
 			this.rpcData.smallImageText = data.smallImageText;
 			this.rpcData.largeImageKey = data.largeImageKey;
 			this.rpcData.smallImageKey = data.smallImageKey;
-			this.rpcData.startTimestamp = data.startTimestamp;
+			this.rpcData.startTimestamp = data.startTimestamp || +new Date();
 
 			if (this.debug) console.log(data.appId);
 			if (this.debug) console.log(this.clientId);
