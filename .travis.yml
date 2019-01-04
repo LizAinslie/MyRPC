@@ -22,8 +22,7 @@ install:
 - npm install
 - npm update
 script:
-- chmod +x ./scripts/make.sh
-- ./scripts/make.sh
+- bash ./scripts/make.sh
 deploy:
 - on:
     branch: master
