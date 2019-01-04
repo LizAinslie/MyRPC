@@ -22,6 +22,7 @@ install:
 - npm install
 - npm update
 script:
+- chmod +x ./scripts/make.sh
 - ./scripts/make.sh
 deploy:
 - on:
