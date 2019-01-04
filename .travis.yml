@@ -23,7 +23,8 @@ install:
 - npm update
 script:
 - npm run lint
-- if test -z "$TRAVIS_TAG"; then npm run make; fi
+- if [[ test [[ "$TRAVIS_OS_NAME" = "osx" ]] && test -z "$TRAVIS_TAG" ]]; then npm run make:osx; fi
+- if [[ test [[ "$TRAVIS_OS_NAME" = "linuxx" ]] && test -z "$TRAVIS_TAG" ]]; then npm run make; fi
 deploy:
 - on:
     branch: master
@@ -35,12 +36,4 @@ deploy:
   file:
   - $TRAVIS_BUILD_DIR/out/make/myrpc-deb-i386.deb
   - $TRAVIS_BUILD_DIR/out/make/myrpc-deb.deb
-  - $TRAVIS_BUILD_DIR/out/make/squirrel.windows/ia32/MyRPC-1.1.2 Setup.exe
-  - $TRAVIS_BUILD_DIR/out/make/squirrel.windows/x64/MyRPC-1.1.2 Setup.exe
   skip_cleanup: true
-- on:
-    branch: master
-    tags: true
-    commits: false
-  provider: script
-  script: $TRAVIS_BUILD_DIR/scripts/version_bump.sh

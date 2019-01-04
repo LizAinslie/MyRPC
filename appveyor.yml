@@ -17,7 +17,6 @@ install:
 test_script:
 - node --version
 - npm --version
-- npm run lint
 build_script:
 - if %APPVEYOR_REPO_TAG% EQU false npm run make
 - IF %APPVEYOR_REPO_TAG% EQU true npm run publish
