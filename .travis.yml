@@ -5,7 +5,7 @@ os:
 - osx
 dist: trusty
 osx_image: xcode8.3
-sudo: false
+sudo: required
 cache:
   directories:
   - node_modules
