@@ -1,25 +1,31 @@
+platform:
+- x64
 os: unstable
 cache:
 - "%LOCALAPPDATA%\\Yarn"
 environment:
   GH_TOKEN:
-      secure: YJjw6kA+aaI18k7YeHRNVR2+chHuahAg9ywUYEj2NPu9qumYOtw2Vmv/Ngx6Nodv
-  matrix:
-    - nodejs_version: 8.12.0
+    secure: YJjw6kA+aaI18k7YeHRNVR2+chHuahAg9ywUYEj2NPu9qumYOtw2Vmv/Ngx6Nodv
+  nodejs_version: "6"
+cache:
+- '%APPDATA%\npm-cache'
+- '%USERPROFILE%\.electron'
+- node_modules
 install:
-  - ps: Install-Product node $env:nodejs_version
-  - set CI=true
-  - npm install -g npm@latest
-  - set PATH=%APPDATA%\npm;%PATH%
-  - npm install
+- ps: Install-Product node $env:nodejs_version $env:platform
+- set PATH=%APPDATA%\npm;%PATH%
+- npm install
+- npm update
+test_script:
+- node --version
+- npm --version
+- npm run lint
+build_script:
+- if %APPVEYOR_REPO_TAG% EQU false npm run make
+- IF %APPVEYOR_REPO_TAG% EQU true npm run publish
 matrix:
   fast_finish: true
 build: off
 version: '{build}'
 shallow_clone: true
 clone_depth: 1
-before_build:
-- rm package-lock.json
-- yarn cache clean
-build_script:
-- npm run make
