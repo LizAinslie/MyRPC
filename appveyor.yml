@@ -4,7 +4,7 @@ os: unstable
 environment:
   GH_TOKEN:
     secure: YJjw6kA+aaI18k7YeHRNVR2+chHuahAg9ywUYEj2NPu9qumYOtw2Vmv/Ngx6Nodv
-  nodejs_version: "6"
+  nodejs_version: "10"
 cache:
 - '%APPDATA%\npm-cache'
 - '%USERPROFILE%\.electron'
