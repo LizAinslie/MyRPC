@@ -2,6 +2,8 @@ platform:
 - x64
 os: unstable
 environment:
+  GITHUB_TOKEN:
+    secure: o3T+Z+BEcsw/K7sDBVQTo5ivGi+bjDw4kn4gbLbSbvm16NetB/0WwawSf3QiyNvf
   nodejs_version: "10"
 cache:
 - '%APPDATA%\npm-cache'
