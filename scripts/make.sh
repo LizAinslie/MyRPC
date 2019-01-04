@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/user/bin/env bash
 if [[ $TRAVIS_OS_NAME = "osx" && -z $TRAVIS_TAG ]]; then
     npm run make:osx;
 fi
