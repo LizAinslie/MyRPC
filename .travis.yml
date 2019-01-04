@@ -1,21 +1,26 @@
 language: node_js
-node_js:
-- 10
+node_js: "10"
 os:
 - linux
+- osx
+dist: trusty
+osx_image: xcode8.3
+sudo: false
+cache:
+  directories:
+  - node_modules
+  - $HOME/.cache/electron
 addons:
   apt:
     packages:
-      - gcc-multilib
-      - g++-multilib
-      - libc6-dev-i386
-      - fakeroot
-before_install:
-- npm i -g yarn
+    - fakeroot
+    - rpm
 install:
-- yarn
+- npm install
+- npm update
 script:
-- yarn make
+- npm run lint
+- if test -z "$TRAVIS_TAG"; then npm run make; fi
 deploy:
 - on:
     branch: master
