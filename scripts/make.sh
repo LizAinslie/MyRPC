@@ -1,11 +1,9 @@
-if [[ -z $TRAVIS_TAG ]] 
-then
-    if [[ $TRAVIS_OS_NAME = "osx" ]] 
-    then
+if [ -z "$TRAVIS_TAG" ] ; then
+    if [ "$TRAVIS_OS_NAME" == "osx" ] ; then
+        echo "osx"
         npm run makeosx
-        # echo "osx"
-    else
+    else 
+        echo "linux"
         npm run make
-        # echo "linux"
-    fi
-fi
+    fi 
+fi 
