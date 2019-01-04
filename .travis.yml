@@ -23,8 +23,8 @@ install:
 - npm update
 script:
 - npm run lint
-- if [[ test [[ "$TRAVIS_OS_NAME" = "osx" ]] && test -z "$TRAVIS_TAG" ]]; then npm run make:osx; fi
-- if [[ test [[ "$TRAVIS_OS_NAME" = "linuxx" ]] && test -z "$TRAVIS_TAG" ]]; then npm run make; fi
+- if [[ test "$TRAVIS_OS_NAME" = "osx" && test -z "$TRAVIS_TAG" ]]; then npm run make:osx; fi
+- if [[ test "$TRAVIS_OS_NAME" = "linux" && test -z "$TRAVIS_TAG" ]]; then npm run make; fi
 deploy:
 - on:
     branch: master
