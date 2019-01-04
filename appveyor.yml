@@ -1,8 +1,6 @@
 platform:
 - x64
 os: unstable
-cache:
-- "%LOCALAPPDATA%\\Yarn"
 environment:
   GH_TOKEN:
     secure: YJjw6kA+aaI18k7YeHRNVR2+chHuahAg9ywUYEj2NPu9qumYOtw2Vmv/Ngx6Nodv
@@ -23,9 +21,3 @@ test_script:
 build_script:
 - if %APPVEYOR_REPO_TAG% EQU false npm run make
 - IF %APPVEYOR_REPO_TAG% EQU true npm run publish
-matrix:
-  fast_finish: true
-build: off
-version: '{build}'
-shallow_clone: true
-clone_depth: 1
