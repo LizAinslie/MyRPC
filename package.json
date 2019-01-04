@@ -8,7 +8,7 @@
     "start": "electron-forge start",
     "package": "electron-forge package --arch=ia32,x64 --platform=linux,win32",
     "make": "electron-forge make --arch=ia32,x64",
-    "make:osx": "electron-forge make --arch=x64",
+    "makeosx": "electron-forge make --arch=x64",
     "publish": "electron-forge publish",
     "lint": "eslint --cache --color --ext .jsx,.js --fix src",
     "styles": "gulp sass",

@@ -30,3 +30,8 @@ deploy:
   on:
     branch: master
     APPVEYOR_REPO_TAG: true
+notifications:
+  - provider: Webhook
+    url:
+      secure: WiPbRNc4K5PdxxAVucneOsum+z1QXHXyiA+/SpkZqrNV4XlTkajEfc6rvXDiK15JS2Tbyk9dozx5eHDvV4IZZDG96zLzDmEkl0Wa9y2IKa5uG1q6mv3NvW72EqWgTV5rEwLXJ5N+bVjSjXXQWSp1Vvk/ukq9he6iXaak1BFtl+w=
+    method: POST
