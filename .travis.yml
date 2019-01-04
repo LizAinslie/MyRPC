@@ -25,6 +25,7 @@ script:
 - chmod +x scripts/make.sh
 - "./scripts/make.sh"
 after_success:
+- find out
 - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
 - chmod +x send.sh
 - "./send.sh success $WEBHOOK_URL"
