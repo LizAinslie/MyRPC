@@ -22,7 +22,6 @@ install:
 - npm install
 - npm update
 script:
-- npm run lint
 - ./scripts/make.sh
 deploy:
 - on:
