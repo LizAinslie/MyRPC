@@ -21,7 +21,9 @@ addons:
 install:
 - npm install
 - npm update
-script: ./scripts/make.sh
+script:
+- chmod + x scripts/make.sh
+- ./scripts/make.sh
 after_success:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
   - chmod +x send.sh
