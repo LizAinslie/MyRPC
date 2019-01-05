@@ -44,4 +44,3 @@ deploy:
   on:
     branch: master
     tags: true
-    commits: false
