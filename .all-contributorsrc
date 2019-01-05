@@ -1,0 +1,79 @@
+{
+  "projectName": "MyRPC",
+  "projectOwner": "RailRunner166",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "RailRunner166",
+      "name": "Landon Gravat",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/45880278?v=4",
+      "profile": "https://railrunner16.me/",
+      "contributions": [
+        "code",
+        "doc",
+        "infra",
+        "tutorial"
+      ]
+    },
+    {
+      "login": "axelgreavette",
+      "name": "Kirox",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/31705527?v=4",
+      "profile": "https://kirox.xyz",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "royal0",
+      "name": "royal0",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/23171377?v=4",
+      "profile": "http://shameful.xyz",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "IkeKap",
+      "name": "Ike",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/24295451?v=4",
+      "profile": "https://github.com/IkeKap",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "nodatahere",
+      "name": "nodatahere",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/26449683?v=4",
+      "profile": "https://github.com/nodatahere",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "GlitchMasta47",
+      "name": "GlitchMasta47",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/17860556?v=4",
+      "profile": "http://glitchmasta47.github.io",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "ThatOneGamer999",
+      "name": "ThatOneGamer999",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/17152768?v=4",
+      "profile": "https://github.com/ThatOneGamer999",
+      "contributions": [
+        "code"
+      ]
+    }
+  ]
+}
