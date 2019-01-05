@@ -55,14 +55,14 @@
       "git add"
     ]
   },
-  "main": "./app/main.js",
+  "main": "./app/main.prod.js",
   "build": {
     "productName": "MyRPC",
     "appId": "me.railrunner16.MyRPC",
     "files": [
       "app/dist/",
       "app/index.html",
-      "app/index.js",
+      "app/main.prod.js",
       "package.json"
     ],
     "dmg": {
@@ -114,18 +114,6 @@
     "email": "support@myrpc.app",
     "url": "https://myrpc.app"
   },
-  "contributors": [
-    {
-      "name": "Vikram Rangaraj",
-      "email": "vikr01@icloud.com",
-      "url": "https://github.com/vikr01"
-    },
-    {
-      "name": "Amila Welihinda",
-      "email": "amilajack@gmail.com",
-      "url": "https://github.com/amilajack"
-    }
-  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/MyRPC/MyRPC/issues"
