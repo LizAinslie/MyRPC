@@ -1,5 +1,3 @@
-/* eslint no-console: 0 */
-
 import { app, Tray, Menu, BrowserWindow, nativeImage, ipcMain, globalShortcut, shell } from 'electron';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import { enableLiveReload } from 'electron-compile';
@@ -48,6 +46,10 @@ class RpcApp {
 		this.getGAClientId();
 	}
 
+	logger(e) {
+		if(this.debug) console.log(e);
+	}
+
 	initAutoLaunch() {
 		this.autoLaunch = new AutoLaunch({
 			name: 'MyRPC',
@@ -75,7 +77,7 @@ class RpcApp {
 
 	initRpcClient() {
 		this.clientId = this.conf.get('client:id');
-		if (this.debug) console.log(this.clientId);
+		this.logger(this.clientId);
 		this.rpc = rpc(this.clientId);
 	}
 
@@ -96,9 +98,7 @@ class RpcApp {
 			};
 			
 			this.conf.set('rpc:data', this.rpcData);
-			this.conf.save(e => {
-				if (this.debug) console.log(e);
-			});
+			this.conf.save(e => this.logger(e));
 		}
 	}
 
@@ -106,12 +106,13 @@ class RpcApp {
 		this.conf = require('nconf');
 		this.settingsLocation = path.join(app.getPath('documents'), 'MyRPC.conf.json');
 		
-		if (this.debug) console.log(this.settingsLocation);
+		this.logger(this.settingsLocation);
 
-		if (fs.existsSync(this.settingsLocation)) this.conf.file({ file: this.settingsLocation });
-		else {
+		if (fs.existsSync(this.settingsLocation)) {
+			this.conf.file({ file: this.settingsLocation });
+		} else {
 			fs.writeFileSync(this.settingsLocation, JSON.stringify({client: {id: '528735337015410712'}}));
-			if (this.debug) console.log('File is created successfully.');
+			this.logger('File is created successfully.');
 			this.conf.file({ file: this.settingsLocation });
 		}
 	}
@@ -121,11 +122,12 @@ class RpcApp {
 	}
 
 	loadIcons() {
-		this.icons.update = process.platform === 'darwin' ? this.loadMenuIcon('download_mac') : this.loadMenuIcon('download_windows');
-		this.icons.github = process.platform === 'darwin' ? this.loadMenuIcon('github_mac') : this.loadMenuIcon('github_windows');
-		this.icons.discord = process.platform === 'darwin' ? this.loadMenuIcon('discord_mac') : this.loadMenuIcon('discord_windows');
-		this.icons.globe = process.platform === 'darwin' ? this.loadMenuIcon('globe_mac') : this.loadMenuIcon('globe_windows');
-		this.icons.close = process.platform === 'darwin' ? this.loadMenuIcon('close_mac') : this.loadMenuIcon('close_windows');
+		const postfix = process.platform === 'darwin' ? 'mac' : 'windows';
+		this.icons.update = this.loadMenuIcon(`download_${postfix}`);
+		this.icons.github = this.loadMenuIcon(`github_${postfix}`);
+		this.icons.discord = this.loadMenuIcon(`discord_${postfix}`);
+		this.icons.globe = this.loadMenuIcon(`globe_${postfix}`);
+		this.icons.close = this.loadMenuIcon(`close_${postfix}`);
 	}
 
 	async createWindow() {
@@ -142,13 +144,9 @@ class RpcApp {
 			slashes: true,
 		}));
 
-		if (this.debug) {
-			await installExtension(REACT_DEVELOPER_TOOLS);
-		}
+		if (this.debug) await installExtension(REACT_DEVELOPER_TOOLS);
 
-		if (process.platform != 'darwin') {
-			this.mainWindow.setIcon(this.icon);
-		}
+		if (process.platform !== 'darwin') this.mainWindow.setIcon(this.icon);
 
 		this.mainWindow.on('close', (event) => {
 			event.preventDefault();
@@ -166,16 +164,14 @@ class RpcApp {
 			this.rpcData.smallImageKey = data.smallImageKey;
 			this.rpcData.startTimestamp = data.startTimestamp || +new Date();
 
-			if (this.debug) console.log(data.appId);
-			if (this.debug) console.log(this.clientId);
+			this.logger(data.appId);
+			this.logger(this.clientId);
 
-			if (this.clientId == data.appId) {
+			if (this.clientId === data.appId) {
 				this.setActivity(this.rpcData);
 			} else {
 				this.conf.set('client:id', data.appId);
-				this.conf.save(e => {
-					if (this.debug) console.log(e);
-				});
+				this.conf.save(e => this.logger(e));
 				app.relaunch();
 				app.exit(0);
 			}
@@ -207,26 +203,18 @@ class RpcApp {
 			this.setActivity(this.rpcData);
 		});
 
-		app.on('window-all-closed', () => {
-			app.quit();
-		});
+		app.on('window-all-closed', app.quit);
 
 		app.on('activate', () => {
-			if (this.mainWindow === null) {
-				this.createWindow();
-			}
+			if (this.mainWindow === null) this.createWindow();
 		});
 	}
 
 	setActivity(data) {
-		if (!this.rpc || !this.mainWindow) {
-			return;
-		}
+		if (!this.rpc || !this.mainWindow) return;
 
 		this.conf.set('rpc:data', data);
-		this.conf.save(e => {
-			if (this.debug) console.log(e);
-		});
+		this.conf.save(e => this.logger(e));
 		return this.rpc.updatePresence(data);
 	}
 
