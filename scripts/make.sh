@@ -34,6 +34,6 @@ Description: Easily set your Discord status to anything!" > control
 		cd ../..
 		cp -r out/MyRPC-linux-x64 MyRPC_deb/usr/share/myrpc
 		dpkg -b MyRPC_deb
-		mv MyRPC_deb.deb MyRPC_v$($TRAVIS_TAG)_x64.deb
+		mv MyRPC_deb.deb MyRPC_x64.deb
 	fi
 fi

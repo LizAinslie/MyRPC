@@ -37,8 +37,7 @@ deploy:
   provider: releases
   api_key:
     secure: p7GKtDFdbyzewLUkXQvDegS7YnK2SU3Vil8zn2ZitBTrbtLheEo+IAjGMbRL3R79WSoKqLP4zVzedsbld8WRujb7w29utfJpySWdb2H9vDfFNVLBz+VueXBfK8+VSQRIXLUBVAdSENPkZVtNyNEPV0PkrxOTMHE2kXvulLy8lf9ZCkNBVt7o+YqFu+WaQF0QiRmuk1q1uaP0e0S3ETgPiOXrUUQNEr2y6pjebC7PPFNj/xBvXfjovaUaBKTjtaJ4wE6hYbNrG80m4r3O8sWbthWpJ2MFiR9iofQ+tdtPCuT9JeZi8K0uNGXQdTqD2llQXFnLubbU1suf+3fFYXFyYlziY2woQDBID8CtijIQFzNLHtNaO01QwhsNXozuUWaHEwwcWJtTdbmDcUIjCCxTlJ3fUq+NqwPUhMjs5Nnd6PqQTRH6j5BBSRw/2U771SH+AbI2icCUWD4j8VSEBcCg5AbkxNv0PKYkg5s3SrThSixU+VQVfh9rJ/GzLF6VfQMIzqc2bQSHWrUFC28wLpBh4OCfyWrXfJjb0Auc3+Bu0UOF1WC87PsGqyPx+a2Mj47zjCxTyqmASFnYx0eMohQH86cQ0tvv5ka82JbZ6cUOJlWexzoCUz07Wh4jkUSKB5wOY688PxeMfC/qJ535YXXC9IWH3u59h3qyCh89t+XxjSM=
-  file:
-  - "MyRPC_v$($TRAVIS_TAG)_x64.deb"
+  file: "MyRPC_x64.deb"
   on:
     branch: master
     tags: true
