@@ -16,7 +16,7 @@ then
 		cd usr && mkdir share && cd share
 		mkdir applications && cd applications
 		echo "[Desktop Entry]
-Version=$TRAVIS_TAG
+Version=1.1
 Name=MyRPC
 Comment=Easily set your Discord status to anything!
 Exec=/usr/share/myrpc/MyRPC
@@ -29,7 +29,7 @@ Categories=Utility;" > myrpc.desktop
 		echo "Package: myrpc
 Maintainer: Kyle Smith <kyleafmine [at] gmail.com>
 Architecture: amd64
-Version: $TRAVIS_TAG
+Version: 1.1
 Description: Easily set your Discord status to anything!" > control
 		cd ../..
 		cp -r out/MyRPC-linux-x64 MyRPC_deb/usr/share/myrpc
