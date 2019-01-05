@@ -5,48 +5,46 @@
   "description": "Easily set your Discord status to anything!",
   "main": "src/index.js",
   "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package --arch=ia32,x64 --platform=linux,win32",
-    "make": "electron-forge make --arch=ia32,x64",
-    "makeosx": "electron-forge make --arch=x64",
-    "publish": "electron-forge publish",
-    "lint": "eslint --cache --color --ext .jsx,.js --fix src",
+    "start": "electron .",
     "styles": "gulp sass",
+
+    "pack": "electron-builder --dir",
+    "dist:x64": "electron-builder --x64",
+    "dist:x32": "electron-builder --ia32",
+    "dist": "yarn dist:x32 && yarn dist:x64",
+    
+    "lint": "eslint --cache --color --ext .jsx,.js --fix src",
+
     "contrib:add": "all-contributors add",
     "contrib:generate": "all-contributors generate"
   },
   "keywords": [],
   "author": "Landon Gravat <railinator4903@gmail.com> (https://railrunner16.me)",
   "license": "MIT",
-  "config": {
-    "forge": {
-      "make_targets": {
-        "win32": [
-          "squirrel"
-        ],
-        "darwin": [
-          "zip"
-        ],
-        "linux": [
-          "deb"
-        ]
-      },
-      "electronPackagerConfig": {
-        "packageManager": "npm"
-      },
-      "electronWinstallerConfig": {
-        "name": "MyRPC"
-      },
-      "electronInstallerDebian": {},
-      "electronInstallerRedhat": {},
-      "github_repository": {
-        "owner": "RailRunner166",
-        "name": "MyRPC"
-      },
-      "windowsStoreConfig": {
-        "packageName": "me.railrunner16.myrpc",
-        "name": "MyRPC"
-      }
+  "build": {
+    "appId": "me.railrunner16.myrpc",
+    "productName": "MyRPC",
+    "win": {
+      "publish": [
+        "github"
+      ],
+      "target": "msi",
+      "icon": "src/assets/icons/512x512.png"
+    },
+    "mac": {
+      "publish": [
+        "github"
+      ],
+      "category": "public.app-category.utility",
+      "target": "default",
+      "icon": "src/assets/icons/512x512.icns"
+    },
+    "linux": {
+      "publish": [
+        "github"
+      ],
+      "target": "AppImage",
+      "icon": "src/assets/icons/512x512.png"
     }
   },
   "dependencies": {

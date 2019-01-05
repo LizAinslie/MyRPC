@@ -1,0 +1,61 @@
+language: node_js
+node_js: '10'
+dist: trusty
+matrix:
+  include:
+  - os: windows
+    install:
+    - npm install
+    - npm update
+  - os: linux
+    sudo: required
+    addons:
+      apt:
+        packages:
+        - fakeroot
+        - rpm
+        - gcc-multilib
+        - g++-multilib
+        - libc6-dev-i386
+    cache:
+      directories:
+      - node_modules
+      - "$HOME/.cache/electron"
+    install:
+    - npm install
+    - npm update
+    before_deploy:
+    - export RELEASE_PKG_FILE=$(ls *.deb)
+  - os: osx
+    sudo: required
+    osx_image: xcode8.3
+    cache:
+      directories:
+      - node_modules
+      - "$HOME/.cache/electron"
+    install:
+    - npm install
+    - npm update
+    before_deploy:
+    - export RELEASE_PKG_FILE=$(ls *.deb)
+# script:
+# - chmod +x scripts/make.sh
+# - "./scripts/make.sh"
+# after_success:
+# - find out
+# - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+# - chmod +x send.sh
+# - "./send.sh success $WEBHOOK_URL"
+# after_failure:
+# - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+# - chmod +x send.sh
+# - "./send.sh failure $WEBHOOK_URL"
+deploy:
+  provider: releases
+  api_key:
+    secure: p7GKtDFdbyzewLUkXQvDegS7YnK2SU3Vil8zn2ZitBTrbtLheEo+IAjGMbRL3R79WSoKqLP4zVzedsbld8WRujb7w29utfJpySWdb2H9vDfFNVLBz+VueXBfK8+VSQRIXLUBVAdSENPkZVtNyNEPV0PkrxOTMHE2kXvulLy8lf9ZCkNBVt7o+YqFu+WaQF0QiRmuk1q1uaP0e0S3ETgPiOXrUUQNEr2y6pjebC7PPFNj/xBvXfjovaUaBKTjtaJ4wE6hYbNrG80m4r3O8sWbthWpJ2MFiR9iofQ+tdtPCuT9JeZi8K0uNGXQdTqD2llQXFnLubbU1suf+3fFYXFyYlziY2woQDBID8CtijIQFzNLHtNaO01QwhsNXozuUWaHEwwcWJtTdbmDcUIjCCxTlJ3fUq+NqwPUhMjs5Nnd6PqQTRH6j5BBSRw/2U771SH+AbI2icCUWD4j8VSEBcCg5AbkxNv0PKYkg5s3SrThSixU+VQVfh9rJ/GzLF6VfQMIzqc2bQSHWrUFC28wLpBh4OCfyWrXfJjb0Auc3+Bu0UOF1WC87PsGqyPx+a2Mj47zjCxTyqmASFnYx0eMohQH86cQ0tvv5ka82JbZ6cUOJlWexzoCUz07Wh4jkUSKB5wOY688PxeMfC/qJ535YXXC9IWH3u59h3qyCh89t+XxjSM=
+  file_glob: true
+  file: "${RELEASE_PKG_FILE}"
+  on:
+    branch: master
+    tags: true
