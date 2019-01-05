@@ -6,21 +6,21 @@ import Grid from './components/Grid';
 import Preview from './components/Preview';
 import Header from './components/Header';
 import ButtonBar from './components/ButtonBar';
-import * as fs from 'fs';
+
 import * as path from 'path';
 import getPath from 'platform-folders';
-const settingsPath = path.join(getPath("documents"), "MyRPC.conf.json");
-const nconf = require('nconf').file({ file: settingsPath })
-
+const settingsPath = path.join(getPath('documents'), 'MyRPC.conf.json');
+const nconf = require('nconf').file({ file: settingsPath });
 const time = ipcRenderer.sendSync('synchronous-message', 'get_time');
+
 export default class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
 		this.state.data = nconf.get('rpc:data');
-		this.state.data.appId = nconf.get("client:id");
-		if (this.state.data === undefined) this.state = {
-			data: {
+		this.state.data.appId = nconf.get('client:id');
+		if (this.state.data === undefined) {
+			this.state.data = {
 				startTimestamp: time,
 				details: 'Using MyRPC',
 				state: 'Being totally awesome',
@@ -28,16 +28,14 @@ export default class App extends React.Component {
 				smallImageText: 'Made by RailRunner16',
 				largeImageKey: 'large_default',
 				smallImageKey: 'small_default',
-				appId: nconf.get("client:id")
-			}
-		};
-
-
+				appId: nconf.get('client:id')
+			};
+		}
 		this.updateData = this.updateData.bind(this);
 	}
 
 	updateData(e) {
-		const data = this.state.data;
+		const { data } = this.state;
 
 		data[e.target.name] = e.target.value;
 
@@ -47,7 +45,7 @@ export default class App extends React.Component {
 	}
 	
 	setStartTimestampToCurrentTime() {
-		const data = this.state.data;
+		const { data } = this.state;
 
 		data.startTimestamp = Date.now();
 
