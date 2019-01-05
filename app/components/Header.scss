@@ -1,0 +1,15 @@
+@import '../scss/includes/vars';
+
+.ui.header {
+    width: 100%;
+    text-align: center;
+    font-size: 1.75rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+    & > .sub.header {
+        font-size: 1.15rem;
+        font-family: sans-serif;
+        display: block;
+        color: $l-gray;
+    }
+}

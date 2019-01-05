@@ -2,6 +2,12 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "C:\\Users\\lando\\Documents\\code\\MyRPC-master\\src\\components"
+		},
+		{
+			"path": "C:\\Users\\lando\\Documents\\code\\MyRPC-master\\scss\\includes"
 		}
 	],
 	"settings": {
