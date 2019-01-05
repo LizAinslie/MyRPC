@@ -243,22 +243,23 @@
     "yarn": "^1.12.3"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.6.3",
-    "connected-react-router": "^5.0.1",
     "devtron": "^1.4.0",
     "electron-debug": "^2.0.0",
     "electron-log": "^2.2.17",
-    "electron-updater": "^4.0.6",
     "history": "^4.7.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-hot-loader": "^4.6.3",
-    "react-redux": "^5.1.1",
-    "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1",
-    "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0",
-    "source-map-support": "^0.5.9"
+    "auto-launch": "^5.0.5",
+    "datconfig-parser": "^1.0.2",
+    "discord-rich-presence": "^0.0.7",
+    "electron-compile": "^6.4.4",
+    "moment": "^2.23.0",
+    "nconf": "^0.10.0",
+    "platform-folders": "^0.2.7",
+    "prop-types": "^15.6.2",
+    "react-moment": "^0.8.4",
+    "register-scheme": "github:devsnek/node-register-scheme"
   },
   "devEngines": {
     "node": ">=7.x",

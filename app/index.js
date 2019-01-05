@@ -8,8 +8,6 @@ import * as url from 'url';
 import rpc from 'discord-rich-presence';
 import * as fs from 'fs';
 
-if(require('electron-squirrel-startup')) app.quit();
-
 class RpcApp {
 	constructor() {
 		this.debug = process.execPath.match(/[\\/]electron/);
