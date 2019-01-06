@@ -240,6 +240,7 @@
     "react-hot-loader": "^4.6.3",
     "auto-launch": "^5.0.5",
     "datconfig-parser": "^1.0.2",
+    "electron-google-analytics": "^0.1.0",
     "discord-rich-presence": "^0.0.7",
     "electron-compile": "^6.4.4",
     "moment": "^2.23.0",
