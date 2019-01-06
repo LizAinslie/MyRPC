@@ -1,6 +1,6 @@
 import { app, Tray, Menu, BrowserWindow, nativeImage, ipcMain, globalShortcut, shell } from 'electron';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
-import { enableLiveReload } from 'electron-compile';
+import { enableLiveReload } from 'electron-prebuilt-compile';
 import Analytics from 'electron-google-analytics';
 import AutoLaunch from 'auto-launch';
 import * as path from 'path';

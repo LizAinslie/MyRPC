@@ -242,7 +242,7 @@
     "datconfig-parser": "^1.0.2",
     "electron-google-analytics": "^0.1.0",
     "discord-rich-presence": "^0.0.7",
-    "electron-compile": "^6.4.4",
+    "electron-prebuilt-compile": "^6.4.4",
     "moment": "^2.23.0",
     "nconf": "^0.10.0",
     "platform-folders": "^0.2.7",
