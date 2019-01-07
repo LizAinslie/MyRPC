@@ -23,8 +23,8 @@ class Preview extends React.Component {
 		return (
 			<div className="ui preview">
 				<div className="images">
-					<img className="big image" title={this.props.largeImageText} src={this.images[this.props.largeImageKey]} />
-					<img className="small image" title={this.props.smallImageText} src={this.images[this.props.smallImageKey]} />
+					<img className="big image" title={this.props.largeImageText} alt="Small Image" src={this.images[this.props.largeImageKey]} />
+					<img className="small image" title={this.props.smallImageText} alt="Small Image" src={this.images[this.props.smallImageKey]} />
 				</div>
 				<div className="info">
 					<span className="text row name">MyRPC</span>
