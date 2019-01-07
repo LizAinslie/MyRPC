@@ -1,3 +1,6 @@
+language: node_js
+node_js:
+- node
 matrix:
   allow_failures:
     - os: windows
@@ -75,10 +78,7 @@ before_script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sleep 3; fi
 
 script:
-  - yarn package-ci
-  - yarn lint
-  - yarn flow
-  # HACK: Temporarily ignore `yarn test` on linux
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then yarn test; fi
-  - yarn build-e2e
-  # - yarn test-e2e
+  - yarn build
+
+after_script:
+  - rm -rf build release
