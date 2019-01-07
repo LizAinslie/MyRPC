@@ -8,12 +8,13 @@ import Header from './components/Header';
 import ButtonBar from './components/ButtonBar';
 
 import * as path from 'path';
-import getPath from 'platform-folders';
-const settingsPath = path.join(getPath('documents'), 'MyRPC.conf.json');
-const nconf = require('nconf').file({ file: settingsPath });
-const time = ipcRenderer.sendSync('synchronous-message', 'get_time');
+import documents from '@myrpc/documents-folder';
 
 import './scss/style.scss';
+
+const time = ipcRenderer.sendSync('synchronous-message', 'get_time');
+const settingsPath = path.join(documents(), 'MyRPC.conf.json');
+const nconf = require('nconf').file({ file: settingsPath });
 
 export default class App extends React.Component {
 	constructor(props) {

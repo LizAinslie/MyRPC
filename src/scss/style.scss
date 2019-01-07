@@ -1,9 +1,9 @@
-@import 'scss/includes/fonts';
-@import 'scss/includes/vars';
-@import 'scss/includes/reset';
+@import 'includes/fonts';
+@import 'includes/vars';
+@import 'includes/reset';
 
-@import 'scss/includes/base-input';
-@import 'scss/includes/base-transition';
+@import 'includes/base-input';
+@import 'includes/base-transition';
 
 body {
     -webkit-app-region: drag;
