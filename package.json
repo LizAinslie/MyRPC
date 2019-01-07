@@ -3,7 +3,7 @@
   "productName": "MyRPC",
   "version": "1.1.3",
   "description": "An app to easily set your Discord status to anything!",
-  "main": "public/electron.js",
+  "main": "public/main.js",
   "dependencies": {
     "@babel/core": "7.1.6",
     "@myrpc/documents-folder": "^1.0.1",
@@ -69,7 +69,7 @@
     "webpack-manifest-plugin": "2.0.4",
     "workbox-webpack-plugin": "3.6.3"
   },
-  "homepage": "https://myrpc.app",
+  "homepage": "./",
   "scripts": {
     "react:start": "node scripts/start.js",
     "electron:start": "node ./dev-scripts/start-electron.js",
@@ -79,7 +79,7 @@
     "pack": "electron-builder --dir",
     "dist": "yarn react:build && electron-builder",
     "preelectron-pack": "yarn react:build",
-    "electron-pack": "build --em.main=build/electron.js",
+    "electron-pack": "build --em.main=build/main.js",
     
     "postinstall": "electron-builder install-app-deps",
     "build": "yarn dist",
