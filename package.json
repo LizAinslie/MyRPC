@@ -98,6 +98,7 @@
     "appId": "me.railrunner16.MyRPC",
     "files": [
       "build/**/*",
+      "public/**/*",
       "node_modules/**/*"
     ],
     "dmg": {

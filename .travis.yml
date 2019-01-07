@@ -41,7 +41,6 @@ cache:
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CXX="g++-8"; fi
-
 install:
   - yarn --ignore-engines
   # On Linux, initialize "virtual display". See before_script
@@ -64,9 +63,7 @@ before_script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export DISPLAY=:99.0; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sh -e /etc/init.d/xvfb start; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sleep 3; fi
-
 script:
   - CI=false yarn build
-
 after_script:
   - rm -rf build release
