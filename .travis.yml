@@ -9,10 +9,6 @@ matrix:
       language: node_js
       node_js:
         - node
-      env:
-        - ELECTRON_CACHE=$HOME/.cache/electron
-        - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
-
     - os: linux
       language: node_js
       node_js:
@@ -39,21 +35,9 @@ matrix:
       language: node_js
       node_js:
         - node
-      env:
-        - ELECTRON_CACHE=$HOME/.cache/electron
-        - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
-
-before_cache:
-  - rm -rf $HOME/.cache/electron-builder/wine
 
 cache:
   yarn: true
-  directories:
-    - node_modules
-    - $(npm config get prefix)/lib/node_modules
-    - flow-typed
-    - $HOME/.cache/electron
-    - $HOME/.cache/electron-builder
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CXX="g++-8"; fi
