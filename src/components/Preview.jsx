@@ -2,6 +2,8 @@ import React from 'react';
 import Moment from 'react-moment';
 import PropTypes from 'prop-types';
 
+import './Preview.scss';
+
 class Preview extends React.Component {
 	constructor(props) {
 		super(props);
@@ -21,8 +23,8 @@ class Preview extends React.Component {
 		return (
 			<div className="ui preview">
 				<div className="images">
-					<img className="big image" title={this.props.largeImageText} src={this.images[this.props.largeImageKey]} />
-					<img className="small image" title={this.props.smallImageText} src={this.images[this.props.smallImageKey]} />
+					<img className="big image" title={this.props.largeImageText} alt="Large Rpc Icon" src={this.images[this.props.largeImageKey]} />
+					<img className="small image" title={this.props.smallImageText} alt="Small Rpc Icon" src={this.images[this.props.smallImageKey]} />
 				</div>
 				<div className="info">
 					<span className="text row name">MyRPC</span>

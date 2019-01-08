@@ -1,0 +1,19 @@
+.ui.grid {
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    & .column {
+        width: 50%;
+
+        float: left;
+    }
+
+    & .row {
+        width: 100%;
+
+        display: block;
+    }
+}

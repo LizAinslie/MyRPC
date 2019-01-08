@@ -1,0 +1,73 @@
+@import '../scss/includes/vars';
+
+.ui.preview {
+    padding: 1.1rem;
+    margin: 1.25rem auto;
+
+    max-width: 78%;
+    min-width: 53%;
+
+    background-color: $blue;
+
+    -webkit-box-align: start;
+    align-items: flex-start;
+
+    display: flex;
+
+    border-radius: 0.75rem;
+
+    & .images {
+        position: relative;
+
+        & img {
+            -webkit-user-drag: none;
+
+            &.big.image {
+                position: relative;
+                display: block;
+
+                width: 60px;
+                height: 60px;
+
+                object-fit: cover;
+
+                border-radius: 4px;
+            }
+
+            &.small.image {
+                position: absolute;
+                bottom: -4px;
+                right: -4px;
+
+                border-radius: 50%;
+
+                width: 20px;
+                height: 20px;
+            }
+        }
+    }
+
+    & .info {
+        flex: 1 1 auto;
+        
+        margin-left: 10px;
+
+        overflow: hidden;
+
+        & .text.row {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+
+            line-height: 16px;
+            font-size: 14px;
+
+            display: block;
+
+            margin-bottom: 2px;
+
+            &.name {
+                font-weight: 600;
+            }
+        }
+    }
+}

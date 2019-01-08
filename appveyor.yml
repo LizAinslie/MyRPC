@@ -1,0 +1,25 @@
+image: Visual Studio 2017
+platform:
+  - x64
+  - x86
+environment:
+  matrix:
+    - GH_TOKEN:
+        secure: R6jBJ7XCVlSmsaIZZrMSnFUYIJYWMIrMBFOu9+PqKKxDnVnusTjfD11nxSN2pz7I
+      nodejs_version: 10
+cache:
+  - '%LOCALAPPDATA%/Yarn'
+matrix:
+  fast_finish: true
+build: off
+version: '{build}'
+shallow_clone: true
+clone_depth: 1
+install:
+  - ps: Install-Product node $env:nodejs_version x64
+  - set CI=false
+  - yarn
+build_script:
+  - yarn build
+after_build:
+  - rm -rf build release
