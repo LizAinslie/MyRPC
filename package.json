@@ -77,9 +77,9 @@
     "react:test": "node scripts/test.js",
     
     "pack": "electron-builder --dir",
-    "dist": "yarn react:build && electron-builder",
+    "dist": "yarn react:build && electron-builder -p always",
     "preelectron-pack": "yarn react:build",
-    "electron-pack": "build --em.main=build/main.js",
+    "electron-pack": "electron-builder --em.main=build/main.js",
     "release": "yarn build",
     
     "postinstall": "electron-builder install-app-deps",
