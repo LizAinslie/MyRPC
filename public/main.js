@@ -1,12 +1,12 @@
-import { app, Tray, Menu, BrowserWindow, nativeImage, ipcMain, globalShortcut, shell } from 'electron';
-import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
-import { enableLiveReload } from 'electron-prebuilt-compile';
-import Analytics from 'electron-google-analytics';
-import AutoLaunch from 'auto-launch';
-import * as path from 'path';
-import * as url from 'url';
-import rpc from 'discord-rich-presence';
-import * as fs from 'fs';
+const { app, Tray, Menu, BrowserWindow, nativeImage, ipcMain, globalShortcut, shell } = require('electron');
+const { installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer');
+const { enableLiveReload } = require('electron-prebuilt-compile');
+const Analytics = require('electron-google-analytics');
+const AutoLaunch = require('auto-launch');
+const path = require('path');
+const url = require('url');
+const rpc = require('discord-rich-presence');
+const fs = require('fs');
 
 class RpcApp {
 	constructor() {
@@ -179,8 +179,11 @@ class RpcApp {
 
 		ipcMain.on('synchronous-message', (e, action) => {
 			switch (action.toLowerCase()) {
-			case 'get_time':
-				e.returnValue = this.startTimestamp;
+				case 'get_time':
+					e.returnValue = this.startTimestamp;
+					break;
+				default:
+					break;
 			}
 		});
 	}

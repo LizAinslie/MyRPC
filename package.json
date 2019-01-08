@@ -77,11 +77,11 @@
     "react:test": "node scripts/test.js",
     
     "pack": "electron-builder --dir",
-    "dist": "yarn react:build && electron-builder",
+    "dist": "yarn react:build && electron-builder --ia32 --x64",
     "preelectron-pack": "yarn react:build",
-    "electron-pack": "build --em.main=build/main.js",
+    "electron-pack": "build --em.main=build/main.js --ia32 --x64",
     
-    "postinstall": "electron-builder install-app-deps",
+    "postinstall": "electron-builder install-app-deps --ia32 --x64",
     "build": "yarn dist",
     "start": "concurrently \"yarn react:start\" \"yarn electron:start\""
   },
