@@ -4,6 +4,8 @@ platform:
   - x86
 environment:
   matrix:
+    - GH_TOKEN:
+        secure: R6jBJ7XCVlSmsaIZZrMSnFUYIJYWMIrMBFOu9+PqKKxDnVnusTjfD11nxSN2pz7I
     - nodejs_version: 10
 cache:
   - '%LOCALAPPDATA%/Yarn'
