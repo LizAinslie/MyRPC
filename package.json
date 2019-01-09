@@ -97,6 +97,7 @@
   "build": {
     "productName": "MyRPC",
     "appId": "me.railrunner16.MyRPC",
+    "asar": false,
     "files": [
       "build/**/*",
       "public/**/*",
