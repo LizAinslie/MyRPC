@@ -64,6 +64,6 @@ before_script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sh -e /etc/init.d/xvfb start; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sleep 3; fi
 script:
-  - CI=false yarn build
+  - CI=false travis_wait yarn build
 after_script:
   - rm -rf build release
