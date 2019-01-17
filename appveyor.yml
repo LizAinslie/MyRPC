@@ -6,8 +6,6 @@ environment:
     - GH_TOKEN:
         secure: R6jBJ7XCVlSmsaIZZrMSnFUYIJYWMIrMBFOu9+PqKKxDnVnusTjfD11nxSN2pz7I
       nodejs_version: 10
-cache:
-  - '%LOCALAPPDATA%/Yarn'
 matrix:
   fast_finish: true
 build: off
@@ -19,6 +17,7 @@ install:
   - set CI=false
   - yarn
 build_script:
+  - set CI=false
   - yarn build
 after_build:
   - rm -rf build release
