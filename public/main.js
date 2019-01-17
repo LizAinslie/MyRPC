@@ -69,7 +69,7 @@ class RpcApp {
 	}
 
 	initAnalytics() {
-		this.analytics = new Analytics('UA-131558223-1');
+		this.analytics = new Analytics.default('UA-131558223-1');
 		this.analyticsClientId = null;
 	}
 
